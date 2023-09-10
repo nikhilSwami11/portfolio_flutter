@@ -21,4 +21,7 @@ mixin StringConstants {
           "- Forked packages and plugins on gitHub and customized according to project's need.\n" +
           "- Utilized Azure DevOps for Agile methodology and collaborated effectively as a team player.\n" +
           "- Major Modules include Order Management, Product Listing, Billing, Dashboard and Payments.\n";
+  static const instagramUrl = "https://www.instagram.com/it_is_nikhil/";
+  static const linkedinUrl =
+      "https://www.linkedin.com/in/nikhil-swami-005030210/";
 }

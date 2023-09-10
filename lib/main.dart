@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:portfolio/core/constants/constant.dart';
-import 'package:portfolio/feature/home/main_page.dart';
+import 'package:portfolio/feature/home/presentation/screens/main_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,8 +15,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Nikhil\'s Portfolio',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-          primarySwatch: Colors.blue, fontFamily: Constant.TURRET_ROAD),
+      theme: ThemeData(fontFamily: Constant.TURRET_ROAD),
       home: const MainPage(),
     );
   }
