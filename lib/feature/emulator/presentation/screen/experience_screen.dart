@@ -9,6 +9,7 @@ import 'package:portfolio/core/constants/string_constants.dart';
 import 'package:portfolio/core/navigation/route_helper.dart';
 import 'package:portfolio/core/navigation/routes.dart';
 import 'package:portfolio/core/theme/colors.dart';
+import 'package:portfolio/feature/emulator/domain/work_details_banner_repository.dart';
 import 'package:portfolio/feature/emulator/presentation/cubit/nav_index_cubit.dart';
 import 'package:portfolio/feature/emulator/presentation/widget/company_cards.dart';
 import 'package:portfolio/feature/emulator/presentation/widget/main_app_bar.dart';
@@ -42,22 +43,24 @@ class ExperienceScreen extends StatelessWidget {
                     'companyName': StringConstants.nowFloats,
                     'responsibilityDescription':
                         StringConstants.nowFloatsResponsibility,
-                    'skills': [
-                      'Flutter',
-                      'Dart',
-                      'Bloc',
-                      'Firebase',
-                      'Local DB',
-                      'Floor',
-                      'Isolated',
-                      'Work Manager',
-                      'Flavor setup',
-                      'Notifications',
-                      'Dynamic Links',
-                      'Maps',
-                      'Scanner',
-                      'Payments',
-                    ],
+                    // 'skills': [
+                    //   'Flutter',
+                    //   'Dart',
+                    //   'Bloc',
+                    //   'Firebase',
+                    //   'Local DB',
+                    //   'Floor',
+                    //   'Isolated',
+                    //   'Work Manager',
+                    //   'Flavor setup',
+                    //   'Notifications',
+                    //   'Dynamic Links',
+                    //   'Maps',
+                    //   'Scanner',
+                    //   'Payments',
+                    // ],
+                    'workDetailsBanner': WorkDetailsBannerRepository.instance
+                        .getNowfloatsBanner(),
                   });
                 },
                 onTapDown: () => HapticFeedback.vibrate(),
@@ -72,6 +75,8 @@ class ExperienceScreen extends StatelessWidget {
                   imageIcon: AppAssets.nowFloatsLogo,
                   jobDescription:
                       'Nowfloats is reliance owned startup, that delivers SAAS products, working as a SDE',
+                  appName: 'Zadinga',
+                  appDownloads: '(50k+)',
                 ),
               ),
               spacerH10,
@@ -84,17 +89,19 @@ class ExperienceScreen extends StatelessWidget {
                     'companyName': StringConstants.fraazo,
                     'responsibilityDescription':
                         StringConstants.fraazoResponsibility,
-                    'skills': [
-                      'Flutter',
-                      'Dart',
-                      'Riverpod',
-                      'Firebase',
-                      'Testing',
-                      'Maps',
-                      'Web Sockets',
-                      'SDUI',
-                      'Streams'
-                    ],
+                    // 'skills': [
+                    //   'Flutter',
+                    //   'Dart',
+                    //   'Riverpod',
+                    //   'Firebase',
+                    //   'Testing',
+                    //   'Maps',
+                    //   'Web Sockets',
+                    //   'SDUI',
+                    //   'Streams'
+                    // ],
+                    'workDetailsBanner':
+                        WorkDetailsBannerRepository.instance.getFraazoBanner(),
                   });
                 },
                 onTapDown: () => HapticFeedback.vibrate(),
@@ -109,6 +116,8 @@ class ExperienceScreen extends StatelessWidget {
                   imageIcon: AppAssets.fraazoLogo,
                   jobDescription:
                       'Fraazo is a quick-commerce startup that sells fruits and vegetables online. Worked as an SDE intern for 6 month, then SDE',
+                  appName: 'Fraazo',
+                  appDownloads: '(1M+)',
                 ),
               ),
             ],

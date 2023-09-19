@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -55,7 +57,6 @@ class AboutScreen extends StatelessWidget {
                         padding: paddingH10V4,
                         child: Row(
                           children: [
-                            spacerW5,
                             Text(
                               status,
                               style: AppStyles.smTextBoldStyle
@@ -81,140 +82,148 @@ class AboutScreen extends StatelessWidget {
             return const SizedBox.shrink();
           },
         ),
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: paddingH10V10,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  decoration: BoxDecoration(
-                      border: Border.all(width: 2, color: Colors.black)),
-                  child: IntrinsicHeight(
-                    child: Row(
+        body: ScrollConfiguration(
+          behavior: ScrollConfiguration.of(context).copyWith(
+            dragDevices: {
+              PointerDeviceKind.touch,
+              PointerDeviceKind.mouse,
+            },
+          ),
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: paddingH10V10,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                        border: Border.all(width: 2, color: Colors.black)),
+                    child: IntrinsicHeight(
+                      child: Row(
+                        children: [
+                          SizedBox(
+                            height: 150,
+                            child: BlocBuilder<LightCubit, LightState>(
+                              builder: (context, state) {
+                                final List<Color> colors = (state
+                                        is LightTurnedOff)
+                                    ? [
+                                        Colors.black.withOpacity(0.4),
+                                        Colors.black.withOpacity(0.5)
+                                      ]
+                                    : [Colors.transparent, Colors.transparent];
+                                return ShaderMask(
+                                  shaderCallback: (bounds) {
+                                    return LinearGradient(colors: colors)
+                                        .createShader(bounds);
+                                  },
+                                  child: Image.asset(AppAssets.nikhilProfile),
+                                  blendMode: BlendMode.darken,
+                                );
+                              },
+                            ),
+                          ),
+                          const Divider(
+                            height: 150,
+                            thickness: 2,
+                            color: Colors.black,
+                          ),
+                          Flexible(
+                            child: Container(
+                                height: 150,
+                                decoration: BoxDecoration(
+                                  color: AppColors.indigo,
+                                  border: const Border.symmetric(
+                                      vertical: BorderSide(
+                                          width: 2, color: Colors.black)),
+                                ),
+                                child: const Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsets.all(8.0),
+                                      child: Text(
+                                        "I turn caffeine into beautiful, bug-free apps.",
+                                        style: AppStyles.lgTextBoldStyle,
+                                      ),
+                                    )
+                                  ],
+                                )),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                  spacerH10,
+                  const Text(
+                    "About me??",
+                    style: AppStyles.h5TextStyle,
+                  ),
+                  const Text(
+                    "I'm a passionate Mobile Developer with a knack for turning code into amazing apps. Let's create something great together!",
+                    style: AppStyles.mdTextBoldStyle,
+                  ),
+                  spacerH20,
+                  Container(
+                    color: Colors.black,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SizedBox(
-                          height: 150,
-                          child: BlocBuilder<LightCubit, LightState>(
-                            builder: (context, state) {
-                              final List<Color> colors = (state
-                                      is LightTurnedOff)
-                                  ? [
-                                      Colors.black.withOpacity(0.4),
-                                      Colors.black.withOpacity(0.5)
-                                    ]
-                                  : [Colors.transparent, Colors.transparent];
-                              return ShaderMask(
-                                shaderCallback: (bounds) {
-                                  return LinearGradient(colors: colors)
-                                      .createShader(bounds);
-                                },
-                                child: Image.asset(AppAssets.nikhilProfile),
-                                blendMode: BlendMode.darken,
-                              );
-                            },
+                        Text(
+                          "What do I know??",
+                          style: AppStyles.h5TextStyle
+                              .copyWith(color: Colors.white),
+                        ),
+                        spacerH10,
+                        RichText(
+                          text: TextSpan(
+                            children: List.generate(
+                                skills.length,
+                                (index) => _buildSpan(
+                                    skills[index], AppColors.white, null)),
                           ),
                         ),
-                        const Divider(
-                          height: 150,
-                          thickness: 2,
-                          color: Colors.black,
-                        ),
-                        Flexible(
-                          child: Container(
-                              height: 150,
-                              decoration: BoxDecoration(
-                                color: AppColors.indigo,
-                                border: const Border.symmetric(
-                                    vertical: BorderSide(
-                                        width: 2, color: Colors.black)),
-                              ),
-                              child: const Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsets.all(8.0),
-                                    child: Text(
-                                      "I turn caffeine into beautiful, bug-free apps.",
-                                      style: AppStyles.lgTextBoldStyle,
-                                    ),
-                                  )
-                                ],
-                              )),
-                        )
                       ],
                     ),
                   ),
-                ),
-                spacerH10,
-                const Text(
-                  "About me??",
-                  style: AppStyles.h5TextStyle,
-                ),
-                const Text(
-                  "I am a Mobile Application Developer professionally, Love my job but bugs won't let me sleep.",
-                  style: AppStyles.mdTextBoldStyle,
-                ),
-                spacerH20,
-                Container(
-                  color: Colors.black,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "What do I know??",
-                        style:
-                            AppStyles.h5TextStyle.copyWith(color: Colors.white),
+                  Container(
+                    decoration: BoxDecoration(
+                        border: Border.all(width: 2, color: Colors.black)),
+                    child: RichText(
+                      text: TextSpan(
+                        children: List.generate(
+                            otherSkills.length,
+                            (index) => _buildSpan(otherSkills[index],
+                                Colors.black, AppColors.indigo)),
                       ),
-                      spacerH10,
-                      RichText(
-                        text: TextSpan(
-                          children: List.generate(
-                              skills.length,
-                              (index) => _buildSpan(
-                                  skills[index], AppColors.white, null)),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                      border: Border.all(width: 2, color: Colors.black)),
-                  child: RichText(
-                    text: TextSpan(
-                      children: List.generate(
-                          otherSkills.length,
-                          (index) => _buildSpan(otherSkills[index],
-                              Colors.black, AppColors.indigo)),
                     ),
                   ),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                spacerH10,
-                const Text(
-                  "Experience ??",
-                  style: AppStyles.h5TextStyle,
-                ),
-                const Text(
-                  "I have roughly 2 years of experience in flutter, In this short span I have worked on many challenging projects, Don't believe me?? then checkout the Work Tab",
-                  style: AppStyles.mdTextBoldStyle,
-                ),
-                BlocBuilder<LightCubit, LightState>(
-                  builder: (context, state) {
-                    final Color color = state is LightTurnedOff
-                        ? Colors.black
-                        : Colors.transparent;
-                    return ColoredBox(
-                        color: color, child: const CatAnimation());
-                  },
-                ),
-                const SizedBox(
-                  height: 20,
-                )
-              ],
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  spacerH10,
+                  const Text(
+                    "Experience ??",
+                    style: AppStyles.h5TextStyle,
+                  ),
+                  const Text(
+                    "I have 2 years of experience in flutter, In this short span I have worked on many challenging projects, and would do so in the future",
+                    style: AppStyles.mdTextBoldStyle,
+                  ),
+                  BlocBuilder<LightCubit, LightState>(
+                    builder: (context, state) {
+                      final Color color = state is LightTurnedOff
+                          ? Colors.black
+                          : Colors.transparent;
+                      return ColoredBox(
+                          color: color, child: const CatAnimation());
+                    },
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  )
+                ],
+              ),
             ),
           ),
         ),

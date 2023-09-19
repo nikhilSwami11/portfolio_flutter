@@ -13,6 +13,7 @@ class EducationCard extends StatefulWidget {
   final String finalYear;
   final String location;
   final String degree;
+  final String imagePath;
   const EducationCard({
     super.key,
     required this.marks,
@@ -20,6 +21,7 @@ class EducationCard extends StatefulWidget {
     required this.finalYear,
     required this.location,
     required this.degree,
+    required this.imagePath,
   });
 
   @override
@@ -92,7 +94,7 @@ class _EducationCardState extends State<EducationCard> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ColoredBox(
-            color: Colors.black,
+            color: Colors.blue.shade900,
             child: Padding(
               padding: paddingH10V4,
               child: Row(
@@ -117,14 +119,27 @@ class _EducationCardState extends State<EducationCard> {
             ),
           ),
           spacerH10,
-          Padding(
-            padding: paddingH10V4,
-            child: Text(
-              widget.instituteName,
-              style: AppStyles.h7TextStyle.copyWith(color: Colors.black),
+          Expanded(
+            child: Row(
+              children: [
+                Flexible(
+                  child: Padding(
+                    padding: paddingH10V4,
+                    child: Text(
+                      widget.instituteName,
+                      style:
+                          AppStyles.h7TextStyle.copyWith(color: Colors.black),
+                    ),
+                  ),
+                ),
+                Image.asset(
+                  widget.imagePath,
+                  width: 70,
+                ),
+                spacerW5
+              ],
             ),
           ),
-          const Spacer(),
           Padding(
             padding: paddingH10V4,
             child: Row(
@@ -149,13 +164,13 @@ class _EducationCardState extends State<EducationCard> {
   Widget _buildRear() {
     return __buildLayout(
       key: const ValueKey(false),
-      backgroundColor: AppColors.black,
+      backgroundColor: AppColors.indigo,
       faceName: "Rear",
       child: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Center(
             child: Text(widget.marks,
-                style: AppStyles.h4TextStyle.copyWith(color: Colors.white))),
+                style: AppStyles.h4TextStyle.copyWith(color: Colors.black))),
       ),
     );
   }

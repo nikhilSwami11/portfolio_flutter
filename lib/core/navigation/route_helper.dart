@@ -88,10 +88,11 @@ mixin RouteHelper {
   static Future<T?> openDialog<T>(
     Widget child, {
     bool isDismissible = true,
+    BuildContext? context,
     Color barrierColor = Colors.black26,
   }) {
     return showDialog<T?>(
-      context: navigatorContext,
+      context: context ?? navigatorContext,
       builder: (_) => child,
       barrierDismissible: isDismissible,
       barrierColor: barrierColor,

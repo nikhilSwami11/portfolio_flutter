@@ -30,7 +30,8 @@ class MobileRouteGenerator {
           backGroundColor: args['backGroundColor'],
           companyName: args['companyName'],
           responsibilityDescription: args['responsibilityDescription'],
-          skills: args['skills'],
+          // skills: args['skills'],
+          workDetailsBanner: args['workDetailsBanner'],
         );
         break;
       default:

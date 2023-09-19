@@ -67,17 +67,11 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
-    - family: TurretRoad
+    - family: CourierPrime
       fonts:
-        - asset: assets/fonts/TurretRoad-ExtraLight.ttf
-          weight: 200
-        - asset: assets/fonts/TurretRoad-Light.ttf
-          weight: 300
-        - asset: assets/fonts/TurretRoad-Medium.ttf
-          weight: 500
-        - asset: assets/fonts/TurretRoad-Regular.ttf
+        - asset: assets/fonts/CourierPrime-Regular.ttf
           weight: 400
-        - asset: assets/fonts/TurretRoad-Bold.ttf
+        - asset: assets/fonts/CourierPrime-Bold.ttf
           weight: 700
     - family: Inter
       fonts:

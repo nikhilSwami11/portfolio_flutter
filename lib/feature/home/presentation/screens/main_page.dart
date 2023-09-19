@@ -20,13 +20,16 @@ class MainPage extends StatelessWidget {
               const SizedBox(
                 height: 40,
               ),
-              FittedBox(
-                child: Text(
-                  "Portfolio",
-                  style: AppStyles.h1TextStyle.copyWith(
-                      fontSize: 90,
-                      color: AppColors.whiteOp9,
-                      fontWeight: FontWeight.w900),
+              Padding(
+                padding: paddingH10V4,
+                child: FittedBox(
+                  child: Text(
+                    "Portfolio",
+                    style: AppStyles.h1TextStyle.copyWith(
+                        fontSize: 90,
+                        color: AppColors.whiteOp9,
+                        fontWeight: FontWeight.w900),
+                  ),
                 ),
               ),
               const SizedBox(
@@ -45,10 +48,10 @@ class MainPage extends StatelessWidget {
                 padding: paddingH10V4,
                 child: ConstrainedBox(
                   constraints: const BoxConstraints(
-                    maxWidth: 600,
+                    maxWidth: 500,
                   ),
                   child: Text(
-                    "The project is a web application created using Flutter. Within this web application, there is another component; hence, it can be described as a device within an application within another device. Inside this device, which is nested within the web application, are various applications, including my portfolio. This concept is inspired by the movie 'Inception,' which featured dreams within dreams. I hope users will enjoy this unique journey.",
+                    "This project is an innovative web application made in Flutter, inspired by my daily development journey. I've captured the essence of running applications on virtual devices to create a unique user experience. I hope users will enjoy this unique journey.",
                     style: AppStyles.lgTextMediumStyle.copyWith(
                       color: AppColors.whiteOp4,
                     ),

@@ -13,6 +13,8 @@ class CompanyCards extends StatelessWidget {
   final String companyName;
   final String jobDescription;
   final Color backgroundColor;
+  final String appName;
+  final String appDownloads;
   const CompanyCards({
     super.key,
     required this.companySite,
@@ -23,6 +25,8 @@ class CompanyCards extends StatelessWidget {
     required this.companyName,
     required this.jobDescription,
     required this.backgroundColor,
+    required this.appName,
+    required this.appDownloads,
   });
 
   @override
@@ -59,44 +63,54 @@ class CompanyCards extends StatelessWidget {
           ),
           child: Row(
             children: [
-              Image.asset(
-                imageIcon,
-                height: 80,
-              ),
               spacerW10,
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    companyName,
-                    style: AppStyles.h6TextStyle,
-                  ),
-                  Text(
-                    title,
-                    style: AppStyles.mdTextBoldStyle,
-                  ),
-                  SizedBox(
-                    width: 160,
-                    child: Text(
+              Flexible(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      companyName,
+                      style: AppStyles.h6TextStyle,
+                    ),
+                    Text(
+                      title,
+                      style: AppStyles.mdTextBoldStyle,
+                    ),
+                    Text(
                       jobDescription,
                       style: AppStyles.smTextMediumStyle
                           .copyWith(color: Colors.grey.shade800),
                       maxLines: 10,
                       overflow: TextOverflow.ellipsis,
-                    ),
-                  )
-                ],
+                    )
+                  ],
+                ),
+              ),
+              Padding(
+                padding: paddingH10V4,
+                child: Image.asset(
+                  imageIcon,
+                  height: 80,
+                ),
               ),
             ],
           ),
         ),
-        const Padding(
+        Padding(
           padding: paddingH5V4,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Spacer(),
+              Image.asset(
+                AppAssets.appStoreIcons,
+                width: 40,
+              ),
               Text(
+                ' $appName$appDownloads',
+                style: AppStyles.smTextBoldStyle,
+              ),
+              const Spacer(),
+              const Text(
                 "view more >>",
                 style: AppStyles.smTextBoldStyle,
               )

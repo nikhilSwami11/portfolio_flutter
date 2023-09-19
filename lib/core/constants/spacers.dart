@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 const spacerH10 = SizedBox(height: 10);
-
+const spacerH15 = SizedBox(height: 15);
 const spacerH20 = SizedBox(height: 20);
 const spacerW10 = SizedBox(width: 10);
 const spacerH5 = SizedBox(height: 5);

@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Nikhil\'s Portfolio',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(fontFamily: Constant.TURRET_ROAD),
+      theme: ThemeData(fontFamily: Constant.COURIER),
       home: const MainPage(),
     );
   }
