@@ -6,6 +6,9 @@ import 'package:portfolio/feature/emulator/presentation/screen/onboarding_screen
 import 'package:portfolio/feature/emulator/presentation/screen/work_details_screen.dart';
 import 'package:portfolio/feature/emulator/presentation/screen/landing_page.dart';
 import 'package:portfolio/feature/emulator/presentation/screen/nikhil_home_screen.dart';
+import 'package:portfolio/feature/emulator/presentation/screen/snake_game_screen.dart';
+import 'package:portfolio/feature/emulator/presentation/screen/tic_tac_toe_screen.dart';
+import 'package:portfolio/feature/emulator/presentation/screen/calculator_screen.dart';
 
 class MobileRouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -23,6 +26,15 @@ class MobileRouteGenerator {
         break;
       case Routes.nikhilHome:
         widget = const NikhilHomeScreen();
+        break;
+      case Routes.snakeGame:
+        widget = const SnakeGameScreen();
+        break;
+      case Routes.ticTacToe:
+        widget = const TicTacToeScreen();
+        break;
+      case Routes.calculator:
+        widget = const CalculatorScreen();
         break;
       case Routes.workDetails:
         final args = screenArguments?.arguments as Map<String, dynamic>;

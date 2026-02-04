@@ -17,7 +17,7 @@ class LandingPage extends StatelessWidget {
               backgroundColor:
                   context.read<SettingsManagerCubit>().selectedColor,
               body: const Column(
-                children: [ToolBar(), AppHomeScreen()],
+                children: [ToolBar(), Expanded(child: AppHomeScreen())],
               ),
             );
           },

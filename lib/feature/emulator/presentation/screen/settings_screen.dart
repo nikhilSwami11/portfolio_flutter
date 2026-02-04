@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter/services.dart';
+import 'package:neopop/widgets/buttons/neopop_button/neopop_button.dart';
 import 'package:portfolio/core/constants/padding.dart';
 import 'package:portfolio/core/constants/spacers.dart';
 import 'package:portfolio/core/constants/globals.dart';
@@ -69,27 +71,26 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       crossAxisSpacing: 2,
                       mainAxisSpacing: 2),
                   itemBuilder: (BuildContext context, int index) {
-                    return InkWell(
-                      onTap: () => {
+                    return NeoPopButton(
+                      color: colors[index] == Colors.transparent
+                          ? Colors.white
+                          : colors[index],
+                      bottomShadowColor: Colors.grey.shade500,
+                      rightShadowColor: Colors.grey.shade500,
+                      depth: 3,
+                      onTapUp: () {
+                        HapticFeedback.vibrate();
                         context
                             .read<SettingsManagerCubit>()
-                            .changeColor(index, colors[index])
+                            .changeColor(index, colors[index]);
                       },
-                      child: Container(
-                        decoration: BoxDecoration(
-                            color: colors[index],
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(10)),
-                            border: Border.all(
-                              width: 1,
-                              color: AppColors.black,
-                            )),
-                        child: Center(
-                          child: Text(
-                            colorsString[index],
-                            style: AppStyles.mdTextBoldStyle
-                                .copyWith(color: Colors.black),
-                          ),
+                      onTapDown: () => HapticFeedback.vibrate(),
+                      border: Border.all(color: Colors.black12),
+                      child: Center(
+                        child: Text(
+                          colorsString[index],
+                          style: AppStyles.mdTextBoldStyle
+                              .copyWith(color: Colors.black),
                         ),
                       ),
                     );

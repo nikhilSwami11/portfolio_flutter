@@ -35,7 +35,7 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
       ),
       title: Text(
         title,
-        style: AppStyles.h6TextStyle,
+        style: AppStyles.h6TextStyle.copyWith(color: Colors.white),
       ),
     );
   }

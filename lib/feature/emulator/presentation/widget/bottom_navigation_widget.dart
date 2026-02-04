@@ -51,7 +51,7 @@ class _BottomNavigationWidgetState extends State<BottomNavigationWidget> {
                               context.read<NavIndexCubit>().index == index,
                           child: Padding(
                               padding: const EdgeInsets.symmetric(
-                                horizontal: 10,
+                                horizontal: 4,
                                 vertical: 4,
                               ),
                               child: Text(

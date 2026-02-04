@@ -14,6 +14,7 @@ class EducationCard extends StatefulWidget {
   final String location;
   final String degree;
   final String imagePath;
+  final String major;
   const EducationCard({
     super.key,
     required this.marks,
@@ -22,6 +23,7 @@ class EducationCard extends StatefulWidget {
     required this.location,
     required this.degree,
     required this.imagePath,
+    this.major = '',
   });
 
   @override
@@ -121,6 +123,7 @@ class _EducationCardState extends State<EducationCard> {
           spacerH10,
           Expanded(
             child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Flexible(
                   child: Padding(
@@ -144,14 +147,29 @@ class _EducationCardState extends State<EducationCard> {
             padding: paddingH10V4,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                Text(
-                  widget.degree,
-                  style: AppStyles.h7TextStyle.copyWith(color: Colors.black),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        widget.degree,
+                        style:
+                            AppStyles.h8TextStyle.copyWith(color: Colors.black),
+                      ),
+                      if (widget.major.isNotEmpty)
+                        Text(
+                          widget.major,
+                          style: AppStyles.h8TextStyle
+                              .copyWith(color: Colors.black),
+                        ),
+                    ],
+                  ),
                 ),
                 Text(
                   widget.location,
-                  style: AppStyles.h7TextStyle.copyWith(color: Colors.black),
+                  style: AppStyles.h8TextStyle.copyWith(color: Colors.black),
                 ),
               ],
             ),
@@ -182,7 +200,7 @@ class _EducationCardState extends State<EducationCard> {
       required Color backgroundColor}) {
     return Container(
       key: key,
-      height: 150,
+      height: widget.major.isNotEmpty ? 180 : 150,
       decoration: BoxDecoration(
           color: backgroundColor,
           border: Border.all(width: 2, color: Colors.black)),
