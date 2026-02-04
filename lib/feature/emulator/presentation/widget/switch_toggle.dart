@@ -24,7 +24,7 @@ class _SwitchToggleState extends State<SwitchToggle> {
     return Switch(
       // This bool value toggles the switch.
       value: isAmPm,
-      activeColor: AppColors.black,
+      activeThumbColor: AppColors.black,
       onChanged: (bool value) {
         // This is called when the user toggles the switch.
         widget.onTap.call(value);

@@ -35,6 +35,9 @@ dependencies:
   equatable: ^2.0.5
   intl: ^0.18.1
   url_launcher: ^6.1.14
+  json_annotation: ^4.10.0
+  json_serializable: ^6.12.0
+  build_runner: ^2.10.5
 
 dev_dependencies:
   flutter_test:
@@ -67,6 +70,7 @@ flutter:
     - assets/images/
     - assets/icons/
     - assets/gif/
+    - assets/data/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

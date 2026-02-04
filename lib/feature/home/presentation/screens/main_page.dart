@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:portfolio/core/constants/padding.dart';
+import 'package:portfolio/core/cubit/portfolio_cubit.dart';
 import 'package:portfolio/core/theme/colors.dart';
 import 'package:portfolio/core/theme/text_styles.dart';
 import 'package:portfolio/feature/emulator/presentation/widget/emulator_widget.dart';
@@ -12,89 +14,101 @@ class MainPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.black,
-      body: SingleChildScrollView(
-        child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const SizedBox(
-                height: 40,
-              ),
-              Padding(
-                padding: paddingH10V4,
-                child: FittedBox(
-                  child: Text(
-                    "Portfolio",
-                    style: AppStyles.h1TextStyle.copyWith(
-                        fontSize: 90,
-                        color: AppColors.whiteOp9,
-                        fontWeight: FontWeight.w900),
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 40,
-              ),
-              Text(
-                "About the project",
-                style: AppStyles.h6TextStyle.copyWith(
-                  color: AppColors.whiteOp6,
-                ),
-              ),
-              const SizedBox(
-                height: 70,
-              ),
-              Padding(
-                padding: paddingH10V4,
-                child: ConstrainedBox(
-                  constraints: const BoxConstraints(
-                    maxWidth: 500,
-                  ),
-                  child: Text(
-                    "This project is an innovative web application made in Flutter, inspired by my daily development journey. I've captured the essence of running applications on virtual devices to create a unique user experience. I hope users will enjoy this unique journey.",
-                    style: AppStyles.lgTextMediumStyle.copyWith(
-                      color: AppColors.whiteOp4,
+      body: BlocBuilder<PortfolioCubit, PortfolioState>(
+        builder: (context, state) {
+          if (state is PortfolioLoading) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (state is PortfolioError) {
+            return Center(child: Text("Error: ${state.message}"));
+          } else if (state is PortfolioLoaded) {
+            final landing = state.portfolioData.landing;
+            return SingleChildScrollView(
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const SizedBox(
+                      height: 40,
                     ),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 90,
-              ),
-              Text(
-                "Tap on Cat to Start",
-                style: AppStyles.lgTextRegularStyle.copyWith(
-                  color: AppColors.whiteOp4,
-                ),
-              ),
-              const Padding(
-                padding: paddingH16V16,
-                child: Emulator(),
-              ),
-              const SizedBox(
-                height: 90,
-              ),
-              Text(
-                "Created By:",
-                style: AppStyles.h6TextStyle.copyWith(
-                  color: AppColors.whiteOp6,
-                ),
-              ),
-              Text(
-                "Nikhil Swami",
-                style: AppStyles.lgTextMediumStyle.copyWith(
-                  color: AppColors.whiteOp9,
-                ),
-              ),
-              const SizedBox(
-                height: 40,
-              ),
-              const SocialLinksWidget(),
-              const SizedBox(
-                height: 20,
-              ),
-            ]),
+                    Padding(
+                      padding: paddingH10V4,
+                      child: FittedBox(
+                        child: Text(
+                          landing.title,
+                          style: AppStyles.h1TextStyle.copyWith(
+                              fontSize: 90,
+                              color: AppColors.whiteOp9,
+                              fontWeight: FontWeight.w900),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 40,
+                    ),
+                    Text(
+                      landing.projectTitle,
+                      style: AppStyles.h6TextStyle.copyWith(
+                        color: AppColors.whiteOp6,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 70,
+                    ),
+                    Padding(
+                      padding: paddingH10V4,
+                      child: ConstrainedBox(
+                        constraints: const BoxConstraints(
+                          maxWidth: 500,
+                        ),
+                        child: Text(
+                          landing.projectDescription,
+                          style: AppStyles.lgTextMediumStyle.copyWith(
+                            color: AppColors.whiteOp4,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 90,
+                    ),
+                    Text(
+                      landing.startPrompt,
+                      style: AppStyles.lgTextRegularStyle.copyWith(
+                        color: AppColors.whiteOp4,
+                      ),
+                    ),
+                    const Padding(
+                      padding: paddingH16V16,
+                      child: Emulator(),
+                    ),
+                    const SizedBox(
+                      height: 90,
+                    ),
+                    Text(
+                      landing.creatorTitle,
+                      style: AppStyles.h6TextStyle.copyWith(
+                        color: AppColors.whiteOp6,
+                      ),
+                    ),
+                    Text(
+                      landing.creatorName,
+                      style: AppStyles.lgTextMediumStyle.copyWith(
+                        color: AppColors.whiteOp9,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 40,
+                    ),
+                    const SocialLinksWidget(),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                  ]),
+            );
+          }
+          return const SizedBox.shrink();
+        },
       ),
     );
   }

@@ -4,12 +4,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:neopop/widgets/buttons/neopop_button/neopop_button.dart';
 import 'package:portfolio/core/constants/padding.dart';
 import 'package:portfolio/core/constants/spacers.dart';
-import 'package:portfolio/core/constants/app_assets.dart';
-import 'package:portfolio/core/constants/string_constants.dart';
+import 'package:portfolio/core/cubit/portfolio_cubit.dart';
 import 'package:portfolio/core/navigation/route_helper.dart';
 import 'package:portfolio/core/navigation/routes.dart';
 import 'package:portfolio/core/theme/colors.dart';
-import 'package:portfolio/feature/emulator/domain/work_details_banner_repository.dart';
 import 'package:portfolio/feature/emulator/presentation/cubit/nav_index_cubit.dart';
 import 'package:portfolio/feature/emulator/presentation/widget/company_cards.dart';
 import 'package:portfolio/feature/emulator/presentation/widget/main_app_bar.dart';
@@ -28,101 +26,60 @@ class ExperienceScreen extends StatelessWidget {
           context.read<NavIndexCubit>().updateNavIndex(0);
         },
       ),
-      body: Padding(
-        padding: paddingH10V10,
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              NeoPopButton(
-                color: Colors.white,
-                onTapUp: () {
-                  HapticFeedback.vibrate();
-                  RouteHelper.push(Routes.workDetails, context: context, args: {
-                    'backGroundColor': AppColors.nowFloatsColor,
-                    'companyName': StringConstants.nowFloats,
-                    'responsibilityDescription':
-                        StringConstants.nowFloatsResponsibility,
-                    // 'skills': [
-                    //   'Flutter',
-                    //   'Dart',
-                    //   'Bloc',
-                    //   'Firebase',
-                    //   'Local DB',
-                    //   'Floor',
-                    //   'Isolated',
-                    //   'Work Manager',
-                    //   'Flavor setup',
-                    //   'Notifications',
-                    //   'Dynamic Links',
-                    //   'Maps',
-                    //   'Scanner',
-                    //   'Payments',
-                    // ],
-                    'workDetailsBanner': WorkDetailsBannerRepository.instance
-                        .getNowfloatsBanner(),
-                  });
-                },
-                onTapDown: () => HapticFeedback.vibrate(),
-                parentColor: Colors.transparent,
-                child: CompanyCards(
-                  backgroundColor: Colors.yellowAccent.shade100,
-                  companyName: "Nowfloats",
-                  companySite: 'nowfloats.com',
-                  duration: 'jan 2023 - current',
-                  title: "Flutter Developer",
-                  location: "Hyderabad",
-                  imageIcon: AppAssets.nowFloatsLogo,
-                  jobDescription:
-                      'Nowfloats is reliance owned startup, that delivers SAAS products, working as a SDE',
-                  appName: 'Zadinga',
-                  appDownloads: '(50k+)',
+      body: BlocBuilder<PortfolioCubit, PortfolioState>(
+        builder: (context, state) {
+          if (state is PortfolioLoaded) {
+            final experiences = state.portfolioData.experiences;
+            return Padding(
+              padding: paddingH10V10,
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: experiences.map((experience) {
+                    final color = Color(int.parse(experience.backgroundColorHex
+                        .replaceFirst('#', '0xFF')));
+                    return Column(
+                      children: [
+                        NeoPopButton(
+                          color: Colors.white,
+                          onTapUp: () {
+                            HapticFeedback.vibrate();
+                            RouteHelper.push(Routes.workDetails,
+                                context: context,
+                                args: {
+                                  'backGroundColor': color,
+                                  'companyName': experience.companyName,
+                                  'responsibilityDescription':
+                                      '', // Pass empty or retrieve if available in future
+                                  'workDetailsBanner':
+                                      experience.detailBannerData,
+                                });
+                          },
+                          onTapDown: () => HapticFeedback.vibrate(),
+                          parentColor: Colors.transparent,
+                          child: CompanyCards(
+                            backgroundColor: color,
+                            companyName: experience.companyName,
+                            companySite: experience.siteUrl,
+                            duration: experience.duration,
+                            title: experience.role,
+                            location: experience.location,
+                            imageIcon: experience.logoAsset,
+                            jobDescription: experience.summary,
+                            appName: experience.appName,
+                            appDownloads: experience.appDownloads,
+                          ),
+                        ),
+                        spacerH10,
+                      ],
+                    );
+                  }).toList(),
                 ),
               ),
-              spacerH10,
-              NeoPopButton(
-                color: Colors.white,
-                onTapUp: () {
-                  HapticFeedback.vibrate();
-                  RouteHelper.push(Routes.workDetails, context: context, args: {
-                    'backGroundColor': AppColors.fraazoColor,
-                    'companyName': StringConstants.fraazo,
-                    'responsibilityDescription':
-                        StringConstants.fraazoResponsibility,
-                    // 'skills': [
-                    //   'Flutter',
-                    //   'Dart',
-                    //   'Riverpod',
-                    //   'Firebase',
-                    //   'Testing',
-                    //   'Maps',
-                    //   'Web Sockets',
-                    //   'SDUI',
-                    //   'Streams'
-                    // ],
-                    'workDetailsBanner':
-                        WorkDetailsBannerRepository.instance.getFraazoBanner(),
-                  });
-                },
-                onTapDown: () => HapticFeedback.vibrate(),
-                parentColor: Colors.transparent,
-                child: CompanyCards(
-                  backgroundColor: Colors.greenAccent.shade100,
-                  companyName: "Fraazo",
-                  companySite: 'fraazo.com',
-                  duration: 'jan 2022 - sept 2022',
-                  title: "Flutter Developer",
-                  location: "Mumbai",
-                  imageIcon: AppAssets.fraazoLogo,
-                  jobDescription:
-                      'Fraazo is a quick-commerce startup that sells fruits and vegetables online. Worked as an SDE intern for 6 month, then SDE',
-                  appName: 'Fraazo',
-                  appDownloads: '(1M+)',
-                ),
-              ),
-            ],
-          ),
-        ),
+            );
+          }
+          return const Center(child: CircularProgressIndicator());
+        },
       ),
     );
   }

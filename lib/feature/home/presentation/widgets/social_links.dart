@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:portfolio/core/constants/app_assets.dart';
-import 'package:portfolio/core/constants/spacers.dart';
-import 'package:portfolio/core/constants/string_constants.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:portfolio/core/cubit/portfolio_cubit.dart';
 import 'package:portfolio/core/theme/colors.dart';
 import 'package:portfolio/feature/home/presentation/widgets/social_media_items.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -11,29 +10,33 @@ class SocialLinksWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        SocialMediaIcons(
-          hoverColor: AppColors.linkedIn,
-          color: AppColors.whiteOp6,
-          onTap: () async {
-            final Uri _url = Uri.parse(StringConstants.linkedinUrl);
-            await launchUrl(_url);
-          },
-          path: AppAssets.linkedinLogo,
-        ),
-        spacerW10,
-        SocialMediaIcons(
-          hoverColor: AppColors.instagram,
-          color: AppColors.whiteOp6,
-          onTap: () async {
-            final Uri _url = Uri.parse(StringConstants.instagramUrl);
-            await launchUrl(_url);
-          },
-          path: AppAssets.instagramLogo,
-        ),
-      ],
+    return BlocBuilder<PortfolioCubit, PortfolioState>(
+      builder: (context, state) {
+        if (state is PortfolioLoaded) {
+          final links = state.portfolioData.socialLinks;
+          return Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: links.map((link) {
+              return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 5),
+                child: SocialMediaIcons(
+                  hoverColor: link.hoverColorHex != null
+                      ? Color(int.parse(
+                          link.hoverColorHex!.replaceFirst('#', '0xFF')))
+                      : AppColors.whiteOp6,
+                  color: AppColors.whiteOp6,
+                  onTap: () async {
+                    final Uri url = Uri.parse(link.url);
+                    await launchUrl(url);
+                  },
+                  path: link.iconAsset,
+                ),
+              );
+            }).toList(),
+          );
+        }
+        return const SizedBox.shrink();
+      },
     );
   }
 }
