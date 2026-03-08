@@ -8,17 +8,17 @@ class SettingsManagerCubit extends Cubit<SettingsManagerState> {
   SettingsManagerCubit() : super(SettingsManagerInitial());
 
   int index = 0;
-  bool isAmPm = false;
+  bool isDarkTheme = false;
   Color selectedColor = Colors.transparent;
 
   void changeColor(int newIndex, Color newColor) {
     index = newIndex;
     selectedColor = newColor;
-    emit(SettingsManagerData(colorIndex: index, isAmPmFormat: isAmPm));
+    emit(SettingsManagerData(colorIndex: index, isDarkTheme: isDarkTheme));
   }
 
-  void changeAmPmFormat(bool isAmPmFormat) {
-    isAmPm = isAmPmFormat;
-    emit(SettingsManagerData(colorIndex: index, isAmPmFormat: isAmPm));
+  void toggleTheme(bool dark) {
+    isDarkTheme = dark;
+    emit(SettingsManagerData(colorIndex: index, isDarkTheme: isDarkTheme));
   }
 }

@@ -11,11 +11,11 @@ class SettingsManagerInitial extends SettingsManagerState {}
 
 class SettingsManagerData extends SettingsManagerState {
   final int colorIndex;
-  final bool isAmPmFormat;
+  final bool isDarkTheme;
 
   const SettingsManagerData(
-      {required this.colorIndex, required this.isAmPmFormat});
+      {required this.colorIndex, required this.isDarkTheme});
 
   @override
-  List<Object> get props => [colorIndex, isAmPmFormat];
+  List<Object> get props => [colorIndex, isDarkTheme];
 }

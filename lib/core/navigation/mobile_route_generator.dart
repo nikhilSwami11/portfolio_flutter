@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:portfolio/core/navigation/animation_generator.dart';
 import 'package:portfolio/core/navigation/route_arguments.dart';
 import 'package:portfolio/core/navigation/routes.dart';
-import 'package:portfolio/feature/emulator/presentation/screen/onboarding_screen.dart';
+// import 'package:portfolio/feature/emulator/presentation/screen/onboarding_screen.dart';
+import 'package:portfolio/feature/emulator/presentation/screen/welcome_screen.dart';
 import 'package:portfolio/feature/emulator/presentation/screen/work_details_screen.dart';
 import 'package:portfolio/feature/emulator/presentation/screen/landing_page.dart';
 import 'package:portfolio/feature/emulator/presentation/screen/nikhil_home_screen.dart';
@@ -19,7 +20,8 @@ class MobileRouteGenerator {
     final Widget widget;
     switch (routeName) {
       case Routes.onboarding:
-        widget = const OnboardingScreen();
+        // widget = const OnboardingScreen();
+        widget = const WelcomeScreen();
         break;
       case Routes.landing:
         widget = const LandingPage();

@@ -153,13 +153,21 @@
   <script src="flutter_bootstrap.js" async></script>
 
   <script>
-    // Remove splash screen once Flutter renders its first element
+    var splashStartTime = Date.now();
+    var minSplashDuration = 2000; // minimum 2 seconds
+
+    // Remove splash screen with minimum display time
     function removeSplash() {
-      var splash = document.getElementById('splash-screen');
-      if (splash) {
-        splash.classList.add('fade-out');
-        setTimeout(function () { splash.remove(); }, 500);
-      }
+      var elapsed = Date.now() - splashStartTime;
+      var remaining = Math.max(0, minSplashDuration - elapsed);
+
+      setTimeout(function () {
+        var splash = document.getElementById('splash-screen');
+        if (splash) {
+          splash.classList.add('fade-out');
+          setTimeout(function () { splash.remove(); }, 500);
+        }
+      }, remaining);
     }
 
     // Watch for Flutter's glass pane to appear (signals the app has rendered)
