@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:portfolio/core/widgets/internal_routing.dart';
-import 'package:portfolio/core/constants/globals.dart';
 import 'package:portfolio/core/navigation/mobile_route_generator.dart';
 import 'package:portfolio/core/navigation/route_helper.dart';
 import 'package:portfolio/core/navigation/routes.dart';

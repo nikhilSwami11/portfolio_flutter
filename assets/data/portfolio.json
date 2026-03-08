@@ -1,38 +1,41 @@
 {
     "landing": {
-        "title": "Portfolio",
+        "title": "Nikhil Swami",
         "createdAt": "2024",
-        "projectTitle": "About the project",
-        "projectDescription": "This project is an innovative web application made in Flutter, inspired by my daily development journey. I've captured the essence of running applications on virtual devices to create a unique user experience. I hope users will enjoy this unique journey.",
-        "startPrompt": "Tap on Cat to Start",
-        "creatorTitle": "Created By:",
-        "creatorName": "Nikhil Swami"
+        "projectTitle": "Software Developer  •  ML Engineer",
+        "projectDescription": "MS CS @ ASU · Building things that just work — from mobile apps to intelligent systems.",
+        "startPrompt": "Explore my interactive portfolio below",
+        "creatorTitle": "Let's Connect",
+        "creatorName": "nswami1@asu.edu"
     },
     "about": {
         "tagline": "I turn caffeine into beautiful, bug-free apps.",
-        "descriptionTitle": "About me??",
-        "description": "I'm a passionate Mobile Developer with a knack for turning code into amazing apps. Let's create something great together!",
-        "skillsTitle": "What do I know??",
+        "descriptionTitle": "About me",
+        "description": "MS CS student at ASU (May 2026), shipping things that actually work. I've built mobile apps with millions of downloads, backend systems that stay up, and I'm now diving deep into generative AI - LLMs, RAG, and agentic systems.",
+        "skillsTitle": "What do I know?",
         "skills": [
-            "Flutter",
+            "Python",
+            "Go",
             "Dart",
-            "Android",
-            "iOS",
-            "Web",
-            "Unit Testing",
-            "Deployment",
-            "Bloc",
+            "Flutter",
+            "PyTorch",
+            "LangChain",
+            "LangGraph",
+            "React",
+            "Node.js",
+            "Docker",
+            "Kubernetes",
+            "GitHub Actions",
+            "PostgreSQL",
             "Firebase",
-            "Database",
-            "OOPS",
-            "Background tasks",
-            "Maps",
-            "Push Notifications",
-            "Scanner",
-            "Payments",
-            "HTML",
-            "CSS",
-            "Problem Solving"
+            "REST",
+            "gRPC",
+            "AWS",
+            "GCP",
+            "Azure",
+            "RAG Pipelines",
+            "Agentic AI",
+            "Prompt Engineering"
         ],
         "otherSkills": [
             "Guitar",
@@ -41,14 +44,14 @@
             "Singing",
             "Song writing"
         ],
-        "experienceTitle": "Experience ??",
-        "experienceSummary": "I have 2 years of experience in flutter, In this short span I have worked on many challenging projects, and would do so in the future",
-        "profileImage": "assets/images/nikhil_profile.jpg"
+        "experienceTitle": "Experience",
+        "experienceSummary": "3 companies, 2+ years, millions of users and still just getting started.",
+        "profileImage": "assets/images/nikhil_profile.jpeg"
     },
     "socialLinks": [
         {
             "platform": "LinkedIn",
-            "url": "https://www.linkedin.com/in/nikhil-swami-005030210/",
+            "url": "https://www.linkedin.com/in/nikhilswami11/",
             "iconAsset": "assets/icons/linkedin_logo.png",
             "hoverColorHex": "#0077B5"
         },
@@ -57,88 +60,120 @@
             "url": "https://www.instagram.com/it_is_nikhil/",
             "iconAsset": "assets/icons/instagram_logo.png",
             "hoverColorHex": "#E1306C"
+        },
+        {
+            "platform": "GitHub",
+            "url": "https://github.com/nikhilSwami11/",
+            "iconAsset": "assets/icons/github_logo.png",
+            "hoverColorHex": "#333333"
         }
     ],
     "experiences": [
         {
+            "companyName": "Onsite Teams",
+            "siteUrl": "onsiteteams.com",
+            "role": "Software Developer",
+            "location": "Remote",
+            "duration": "Feb 2024 – Aug 2024",
+            "logoAsset": "assets/icons/onsite_logo.jpeg",
+            "summary": "Built apps and software using Flutter and Go.",
+            "appName": "Onsite",
+            "appDownloads": "(500K+)",
+            "backgroundColorHex": "#FFEBEE",
+            "detailBannerData": [
+                {
+                    "title": "Go",
+                    "subtitle": "Built and maintained Go microservices with gRPC and REST APIs."
+                },
+                {
+                    "title": "Flutter",
+                    "subtitle": "Led end-to-end migration from legacy native app to Flutter + Go stack."
+                },
+                {
+                    "title": "gRPC",
+                    "subtitle": "Enabled real-time communication across distributed system layers."
+                },
+                {
+                    "title": "Clean Architecture",
+                    "subtitle": "Applied MVVM + TDD — reduced production defects by 32%."
+                }
+            ]
+        },
+        {
             "companyName": "NowFloats",
             "siteUrl": "nowfloats.com",
-            "role": "Flutter Developer",
+            "role": "Software Developer",
             "location": "Hyderabad",
-            "duration": "jan 2023 - current",
+            "duration": "Jan 2023 – Feb 2024",
             "logoAsset": "assets/icons/nf_logo.png",
-            "summary": "Nowfloats is reliance owned startup, that delivers SAAS products, working as a SDE",
+            "summary": "Kept a SaaS platform humming for thousands of businesses — backend, CI/CD, all of it.",
             "appName": "Zadinga",
-            "appDownloads": "(50k+)",
+            "appDownloads": "(50K+)",
             "backgroundColorHex": "#FFF9C4",
             "detailBannerData": [
                 {
-                    "title": "Migration",
-                    "subtitle": "Migrating native android application (Zadinga) to flutter for android, Ios, web and desktop."
+                    "title": "Flutter",
+                    "subtitle": "Cross-platform mobile app development for Android, iOS and web."
                 },
                 {
-                    "title": "System Architecture",
-                    "subtitle": "Using Bloc along with MVVM architecture , proficiently configuring flavors and custom navigation."
+                    "title": "Azure",
+                    "subtitle": "Cloud infrastructure and deployments on Microsoft Azure."
                 },
                 {
-                    "title": "Firebase",
-                    "subtitle": "Utilized Firebase for Authentication, Push Notifications, Deep links, Analytics, and FireStore DB"
+                    "title": ".NET Core",
+                    "subtitle": "Engineered scalable SaaS back-end services with 99.9% uptime."
                 },
                 {
-                    "title": "Local Database",
-                    "subtitle": "Used floor for local db and used mlkit_scanner for barcode and QR code scanning along with isolates for background tasks."
-                },
-                {
-                    "title": "Deployment",
-                    "subtitle": "Deployed application on play store and app store"
-                },
-                {
-                    "title": "Google Maps",
-                    "subtitle": "Handled complex logic including search functionality, filtering, pagination on live observable data, video player, and google maps."
-                },
-                {
-                    "title": "Modifying Dependencies",
-                    "subtitle": "- Forked packages and plugins on gitHub and customized according to project's need."
-                },
-                {
-                    "title": "Major modules",
-                    "subtitle": "Major Modules include Order Management, Product Listing, Billing, Dashboard and Payments."
+                    "title": "CI/CD",
+                    "subtitle": "Automated pipelines with GitHub Actions — cut deployment cycles by 14%."
                 }
             ]
         },
         {
             "companyName": "Fraazo",
             "siteUrl": "fraazo.com",
-            "role": "Flutter Developer",
+            "role": "Software Developer",
             "location": "Mumbai",
-            "duration": "jan 2022 - sept 2022",
+            "duration": "Jan 2022 – Sept 2022",
             "logoAsset": "assets/icons/fraazo_logo.png",
-            "summary": "Fraazo is a quick-commerce startup that sells fruits and vegetables online. Worked as an SDE intern for 6 month, then SDE",
+            "summary": "Consumer Flutter app, 1M+ downloads — Server-Driven UI and zero-jank performance.",
             "appName": "Fraazo",
             "appDownloads": "(1M+)",
             "backgroundColorHex": "#B9F6CA",
             "detailBannerData": [
                 {
-                    "title": "Summary",
-                    "subtitle": "Designed, Implemented and tested flutter and dart code for both android and IOS."
-                },
-                {
-                    "title": "REST APIs",
-                    "subtitle": "Integrated APIs, Web Sockets and external dependencies within the application."
+                    "title": "Flutter",
+                    "subtitle": "Built Server-Driven UI enabling real-time, release-free UI updates."
                 },
                 {
                     "title": "Firebase",
-                    "subtitle": "- Using Firebase for Push Notifications, dynamic links, Crashlytics and controlling variant distribution (A/B testing)."
+                    "subtitle": "Push notifications, Crashlytics, dynamic links, and A/B testing."
                 },
                 {
-                    "title": "Dev Testing",
-                    "subtitle": "Worked on Bug fixes, unit and widget testing, state management and native features."
+                    "title": "REST APIs",
+                    "subtitle": "Integrated APIs and WebSockets throughout the app."
                 },
                 {
-                    "title": "Major Modules",
-                    "subtitle": "Major Modules include Server Driven UI, Order Tracking and Subscription."
+                    "title": "Performance",
+                    "subtitle": "Eliminated memory leaks — crash-free sessions jumped from 96% to 99%."
                 }
             ]
+        }
+    ],
+    "education": [
+        {
+            "institution": "Arizona State University",
+            "degree": "MS in Computer Science",
+            "duration": "2026",
+            "gpa": "3.89",
+            "logoAsset": "assets/icons/asu_logo.jpg"
+        },
+        {
+            "institution": "LNM Institute of Information Technology",
+            "degree": "B.Tech in Computer Science",
+            "duration": "2022",
+            "gpa": "3.14",
+            "logoAsset": ""
         }
     ]
 }

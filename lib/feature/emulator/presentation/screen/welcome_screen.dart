@@ -34,11 +34,10 @@ class _WelcomeScreenState extends State<WelcomeScreen>
   late final Animation<double> _screenFade;
 
   final List<_TextItem> _items = const [
-    _TextItem('Hello,', 32, FontWeight.w400, Colors.black54),
-    _TextItem("I'm Nikhil", 40, FontWeight.w700, Colors.black87),
-    _TextItem('Software Developer', 22, FontWeight.w500, Colors.indigo),
-    _TextItem(
-        'Flutter • Android • iOS • Web', 14, FontWeight.w400, Colors.black45),
+    _TextItem("My Portfolio.", 36, FontWeight.w800, Colors.black87),
+    _TextItem("A smartphone,\ninside your browser.", 20, FontWeight.w500,
+        Colors.indigo),
+    _TextItem("Know more about me.", 14, FontWeight.w400, Colors.black38),
   ];
 
   @override

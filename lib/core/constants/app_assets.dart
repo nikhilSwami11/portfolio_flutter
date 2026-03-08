@@ -8,6 +8,7 @@ mixin AppAssets {
   static const nikhilProfile = "assets/images/nikhil_profile.jpg";
   static const lnmiit = "assets/images/lnmiit.jpeg";
   static const mps = "assets/images/mps.jpeg";
+  static const asuLogo = "assets/icons/asu_logo.jpg";
 
   /// Icons
   static const nikhil = "assets/icons/nikhil_icon.png";

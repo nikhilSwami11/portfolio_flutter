@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:portfolio/core/constants/padding.dart';
+import 'package:portfolio/core/constants/string_constants.dart';
 import 'package:portfolio/core/cubit/portfolio_cubit.dart';
 import 'package:portfolio/core/theme/colors.dart';
 import 'package:portfolio/core/theme/text_styles.dart';
 import 'package:portfolio/feature/emulator/presentation/widget/emulator_widget.dart';
+import 'package:portfolio/feature/home/presentation/widgets/experience_timeline_section.dart';
+import 'package:portfolio/feature/home/presentation/widgets/skills_grid_section.dart';
 import 'package:portfolio/feature/home/presentation/widgets/social_links.dart';
 
 class MainPage extends StatefulWidget {
@@ -25,9 +28,13 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
   late final Animation<Offset> _subtitleSlide;
   late final Animation<double> _descFade;
   late final Animation<Offset> _descSlide;
-  late final Animation<double> _promptFade;
+  late final Animation<double> _credentialsFade;
   late final Animation<double> _emulatorFade;
   late final Animation<Offset> _emulatorSlide;
+  late final Animation<double> _experienceFade;
+  late final Animation<Offset> _experienceSlide;
+  late final Animation<double> _skillsFade;
+  late final Animation<Offset> _skillsSlide;
   late final Animation<double> _footerFade;
 
   @override
@@ -76,9 +83,9 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
       curve: const Interval(0.2, 0.55, curve: Curves.easeOutCubic),
     ));
 
-    _promptFade = CurvedAnimation(
+    _credentialsFade = CurvedAnimation(
       parent: _entranceController,
-      curve: const Interval(0.35, 0.6, curve: Curves.easeOut),
+      curve: const Interval(0.32, 0.55, curve: Curves.easeOut),
     );
 
     _emulatorFade = CurvedAnimation(
@@ -93,9 +100,33 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
       curve: const Interval(0.4, 0.8, curve: Curves.easeOutCubic),
     ));
 
+    _experienceFade = CurvedAnimation(
+      parent: _entranceController,
+      curve: const Interval(0.6, 0.85, curve: Curves.easeOut),
+    );
+    _experienceSlide = Tween<Offset>(
+      begin: const Offset(0, 0.15),
+      end: Offset.zero,
+    ).animate(CurvedAnimation(
+      parent: _entranceController,
+      curve: const Interval(0.6, 0.85, curve: Curves.easeOutCubic),
+    ));
+
+    _skillsFade = CurvedAnimation(
+      parent: _entranceController,
+      curve: const Interval(0.7, 0.9, curve: Curves.easeOut),
+    );
+    _skillsSlide = Tween<Offset>(
+      begin: const Offset(0, 0.15),
+      end: Offset.zero,
+    ).animate(CurvedAnimation(
+      parent: _entranceController,
+      curve: const Interval(0.7, 0.9, curve: Curves.easeOutCubic),
+    ));
+
     _footerFade = CurvedAnimation(
       parent: _entranceController,
-      curve: const Interval(0.7, 1.0, curve: Curves.easeOut),
+      curve: const Interval(0.85, 1.0, curve: Curves.easeOut),
     );
 
     // ── Slow gradient animation ──
@@ -156,88 +187,100 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
             } else if (state is PortfolioError) {
               return Center(child: Text("Error: ${state.message}"));
             } else if (state is PortfolioLoaded) {
-              final landing = state.portfolioData.landing;
               return SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const SizedBox(height: 40),
+                    const SizedBox(height: 80),
 
-                    // Title
-                    SlideTransition(
-                      position: _titleSlide,
-                      child: FadeTransition(
-                        opacity: _titleFade,
-                        child: Padding(
-                          padding: paddingH10V4,
-                          child: FittedBox(
-                            child: Text(
-                              landing.title,
-                              style: AppStyles.h1TextStyle.copyWith(
-                                fontSize: 85,
-                                color: AppColors.whiteOp9,
-                                fontWeight: FontWeight.w800,
+                    // Hero text block — Apple-style cascade
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 24),
+                      child: ConstrainedBox(
+                        constraints: const BoxConstraints(maxWidth: 700),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            // Line 1: "Hello."
+                            SlideTransition(
+                              position: _titleSlide,
+                              child: FadeTransition(
+                                opacity: _titleFade,
+                                child: Text(
+                                  StringConstants.heroLine1,
+                                  style: AppStyles.h1TextStyle.copyWith(
+                                    fontSize: 64,
+                                    fontWeight: FontWeight.w800,
+                                    foreground: Paint()
+                                      ..shader = const LinearGradient(
+                                        colors: [
+                                          Color(0xFF818cf8),
+                                          Color(0xFF38bdf8),
+                                        ],
+                                      ).createShader(
+                                          const Rect.fromLTWH(0, 0, 200, 70)),
+                                  ),
+                                ),
                               ),
                             ),
-                          ),
-                        ),
-                      ),
-                    ),
 
-                    const SizedBox(height: 40),
+                            const SizedBox(height: 8),
 
-                    // Project title
-                    SlideTransition(
-                      position: _subtitleSlide,
-                      child: FadeTransition(
-                        opacity: _subtitleFade,
-                        child: Text(
-                          landing.projectTitle,
-                          style: AppStyles.h6TextStyle.copyWith(
-                            color: AppColors.whiteOp6,
-                          ),
-                        ),
-                      ),
-                    ),
-
-                    const SizedBox(height: 70),
-
-                    // Description
-                    SlideTransition(
-                      position: _descSlide,
-                      child: FadeTransition(
-                        opacity: _descFade,
-                        child: Padding(
-                          padding: paddingH10V4,
-                          child: ConstrainedBox(
-                            constraints: const BoxConstraints(maxWidth: 500),
-                            child: Text(
-                              landing.projectDescription,
-                              style: AppStyles.lgTextMediumStyle.copyWith(
-                                color: AppColors.whiteOp4,
+                            // Line 2: "I'm Nikhil."
+                            SlideTransition(
+                              position: _subtitleSlide,
+                              child: FadeTransition(
+                                opacity: _subtitleFade,
+                                child: Text(
+                                  StringConstants.heroLine2,
+                                  style: AppStyles.h1TextStyle.copyWith(
+                                    fontSize: 64,
+                                    fontWeight: FontWeight.w800,
+                                    color: AppColors.whiteOp9,
+                                  ),
+                                ),
                               ),
-                              textAlign: TextAlign.center,
                             ),
-                          ),
+
+                            const SizedBox(height: 8),
+
+                            // Line 3: "I build intelligent\nsoftware."
+                            SlideTransition(
+                              position: _descSlide,
+                              child: FadeTransition(
+                                opacity: _descFade,
+                                child: Text(
+                                  StringConstants.heroLine3,
+                                  style: AppStyles.h3TextStyle.copyWith(
+                                    fontSize: 40,
+                                    fontWeight: FontWeight.w600,
+                                    color: AppColors.whiteOp4,
+                                    height: 1.3,
+                                  ),
+                                ),
+                              ),
+                            ),
+
+                            const SizedBox(height: 24),
+
+                            // Credentials — role titles
+                            FadeTransition(
+                              opacity: _credentialsFade,
+                              child: Text(
+                                StringConstants.heroCredentials,
+                                style: AppStyles.lgTextMediumStyle.copyWith(
+                                  color: const Color(0xFF38bdf8),
+                                  letterSpacing: 0.5,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ),
 
-                    const SizedBox(height: 90),
-
-                    // Start prompt
-                    FadeTransition(
-                      opacity: _promptFade,
-                      child: Text(
-                        landing.startPrompt,
-                        style: AppStyles.lgTextRegularStyle.copyWith(
-                          color: AppColors.whiteOp4,
-                        ),
-                      ),
-                    ),
-
-                    const SizedBox(height: 16),
+                    const SizedBox(height: 72),
 
                     // Emulator with glow
                     SlideTransition(
@@ -279,7 +322,29 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
                       ),
                     ),
 
-                    const SizedBox(height: 90),
+                    const SizedBox(height: 100),
+
+                    // Experience timeline
+                    SlideTransition(
+                      position: _experienceSlide,
+                      child: FadeTransition(
+                        opacity: _experienceFade,
+                        child: const ExperienceTimelineSection(),
+                      ),
+                    ),
+
+                    const SizedBox(height: 100),
+
+                    // Skills grid
+                    SlideTransition(
+                      position: _skillsSlide,
+                      child: FadeTransition(
+                        opacity: _skillsFade,
+                        child: const SkillsGridSection(),
+                      ),
+                    ),
+
+                    const SizedBox(height: 100),
 
                     // Footer
                     FadeTransition(
@@ -287,13 +352,13 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
                       child: Column(
                         children: [
                           Text(
-                            landing.creatorTitle,
+                            StringConstants.footerTitle,
                             style: AppStyles.h6TextStyle.copyWith(
                               color: AppColors.whiteOp6,
                             ),
                           ),
                           Text(
-                            landing.creatorName,
+                            StringConstants.footerEmail,
                             style: AppStyles.lgTextMediumStyle.copyWith(
                               color: AppColors.whiteOp9,
                             ),

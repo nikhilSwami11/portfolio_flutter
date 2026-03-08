@@ -52,4 +52,18 @@ mixin StringConstants {
   static const majorModules = "Major modules";
   static const majorModulesDesc =
       "Major Modules include Order Management, Product Listing, Billing, Dashboard and Payments.";
+
+  // Hero section (main page)
+  static const heroLine1 = "Hello.";
+  static const heroLine2 = "I'm Nikhil.";
+  static const heroLine3 = "I build intelligent software.";
+  static const heroCredentials =
+      "Software Developer  •  ML Engineer  •  MS CS @ ASU";
+  static const footerTitle = "Let's Connect";
+  static const footerEmail = "nswami1@asu.edu";
+
+  // Emulator onboarding
+  static const emulatorHeadline =
+      "Experience my portfolio.\nOn a smartphone.\nRight here.";
+  static const emulatorPrompt = "Tap to explore";
 }
