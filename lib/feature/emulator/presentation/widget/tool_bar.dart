@@ -12,18 +12,16 @@ class ToolBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 40,
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
+      height: 24,
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
       decoration: const BoxDecoration(
-          border: BorderDirectional(
-              bottom: BorderSide(width: 1, color: Colors.black))),
+          color: Colors.white,
+          borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(20),
+              bottomRight: Radius.circular(20))),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
-            "N .S .O .S.",
-            style: AppStyles.smTextBoldStyle.copyWith(color: Colors.black),
-          ),
           BlocBuilder<SettingsManagerCubit, SettingsManagerState>(
             builder: (context, state) {
               return StreamBuilder(
@@ -35,13 +33,18 @@ class ToolBar extends StatelessWidget {
                           : DateFormat('HH:mm').format(DateTime.now());
                   return Text(
                     timeString,
-                    style:
-                        AppStyles.smTextBoldStyle.copyWith(color: Colors.black),
+                    style: AppStyles.xsTextMediumStyle.copyWith(
+                        color: Colors.black, fontWeight: FontWeight.w600),
                   );
                 },
               );
             },
-          )
+          ),
+          const Icon(
+            Icons.battery_full_rounded,
+            color: Colors.black,
+            size: 20,
+          ),
         ],
       ),
     );

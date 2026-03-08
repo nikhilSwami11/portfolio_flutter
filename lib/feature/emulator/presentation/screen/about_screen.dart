@@ -7,6 +7,7 @@ import 'package:neopop/widgets/buttons/neopop_button/neopop_button.dart';
 import 'package:portfolio/core/constants/padding.dart';
 import 'package:portfolio/core/constants/spacers.dart';
 import 'package:portfolio/core/constants/app_assets.dart';
+import 'package:portfolio/core/navigation/route_helper.dart';
 import 'package:portfolio/core/theme/colors.dart';
 import 'package:portfolio/core/theme/text_styles.dart';
 import 'package:portfolio/feature/emulator/presentation/cubit/light_cubit.dart';
@@ -27,10 +28,16 @@ class AboutScreen extends StatelessWidget {
           elevation: 0,
           backgroundColor: Colors.black,
           titleSpacing: 0,
-          leading: Center(
-            child: Image.asset(
-              AppAssets.threeDots,
-              width: 30,
+          leading: NeoPopButton(
+            color: AppColors.indigo,
+            onTapUp: () {
+              RouteHelper.pop(context: context);
+            },
+            onTapDown: () => HapticFeedback.vibrate(),
+            parentColor: Colors.transparent,
+            child: const Icon(
+              Icons.arrow_back_ios_new_outlined,
+              color: Colors.black,
             ),
           ),
           actions: [

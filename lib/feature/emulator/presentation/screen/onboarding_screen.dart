@@ -1,9 +1,12 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:portfolio/core/constants/app_assets.dart';
 import 'package:portfolio/core/navigation/route_arguments.dart';
 import 'package:portfolio/core/navigation/route_helper.dart';
 import 'package:portfolio/core/navigation/routes.dart';
+import 'package:portfolio/core/theme/text_styles.dart';
 import 'package:portfolio/feature/emulator/presentation/widget/back_hole_clipper.dart';
 
 class OnboardingScreen extends StatelessWidget {
@@ -57,6 +60,19 @@ class _CatAnimationWidgetState extends State<CatAnimationWidget>
     end: 20,
   );
 
+  // Blinking "Click me" animation
+  late final blinkAnimationController = AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 800),
+  );
+  late final blinkOpacity = Tween<double>(
+    begin: 0.3,
+    end: 1.0,
+  ).animate(CurvedAnimation(
+    parent: blinkAnimationController,
+    curve: Curves.easeInOut,
+  ));
+
   double get catOffset => catOffsetTween.evaluate(catOffsetAnimationController);
   double get catRotation =>
       catRotationTween.evaluate(catOffsetAnimationController);
@@ -67,6 +83,7 @@ class _CatAnimationWidgetState extends State<CatAnimationWidget>
   void initState() {
     holeAnimationController.addListener(() => setState(() {}));
     catOffsetAnimationController.addListener(() => setState(() {}));
+    blinkAnimationController.repeat(reverse: true);
     super.initState();
   }
 
@@ -74,6 +91,7 @@ class _CatAnimationWidgetState extends State<CatAnimationWidget>
   void dispose() {
     holeAnimationController.dispose();
     catOffsetAnimationController.dispose();
+    blinkAnimationController.dispose();
     super.dispose();
   }
 
@@ -105,6 +123,7 @@ class _CatAnimationWidgetState extends State<CatAnimationWidget>
                       padding: const EdgeInsets.all(20.0),
                       child: GestureDetector(
                         onTap: (() async {
+                          blinkAnimationController.stop();
                           holeAnimationController.forward();
                           await catOffsetAnimationController.forward();
                           await Future.delayed(
@@ -115,9 +134,32 @@ class _CatAnimationWidgetState extends State<CatAnimationWidget>
                               context: context,
                               animation: RouteAnimationType.zoomOutAndFade);
                         }),
-                        child: Image.asset(
-                          AppAssets.cat,
-                          fit: BoxFit.fill,
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            // Blinking "Click me" text
+                            FadeTransition(
+                              opacity: blinkOpacity,
+                              child: Text(
+                                'Click me',
+                                style: AppStyles.smTextBoldStyle.copyWith(
+                                  letterSpacing: 1.2,
+                                ),
+                              ),
+                            ),
+                            const SizedBox(height: 8),
+                            // Cat image
+                            Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.only(left: 24.0),
+                                child: Image.asset(
+                                  AppAssets.cat,
+                                  fit: BoxFit.fill,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ),

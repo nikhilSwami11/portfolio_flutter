@@ -16,9 +16,7 @@ class LandingPage extends StatelessWidget {
             return Scaffold(
               backgroundColor:
                   context.read<SettingsManagerCubit>().selectedColor,
-              body: const Column(
-                children: [ToolBar(), Expanded(child: AppHomeScreen())],
-              ),
+              body: const AppHomeScreen(),
             );
           },
         ));

@@ -21,4 +21,7 @@ mixin AppAssets {
   static const instagramLogo = "assets/icons/instagram_logo.png";
   static const linkedinLogo = "assets/icons/linkedin_logo.png";
   static const appStoreIcons = "assets/icons/app_store_icons.png";
+  static const snakeIcon = "assets/icons/snake_icon.png";
+  static const tictactoeIcon = "assets/icons/tictactoe_icon.png";
+  static const calculatorIcon = "assets/icons/calculator_icon.png";
 }

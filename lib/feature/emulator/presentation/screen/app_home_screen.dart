@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:neopop/widgets/buttons/neopop_button/neopop_button.dart';
 import 'package:portfolio/core/constants/app_assets.dart';
 import 'package:portfolio/core/navigation/route_helper.dart';
 import 'package:portfolio/core/navigation/routes.dart';
@@ -24,20 +23,17 @@ class AppHomeScreen extends StatelessWidget {
       },
       {
         'name': 'Snake',
-        'icon': Icons.games,
-        'iconColor': Colors.green,
+        'iconUrl': AppAssets.snakeIcon,
         'onTap': () => RouteHelper.push(Routes.snakeGame, context: context),
       },
       {
         'name': 'TicTacToe',
-        'icon': Icons.grid_3x3,
-        'iconColor': Colors.blue,
+        'iconUrl': AppAssets.tictactoeIcon,
         'onTap': () => RouteHelper.push(Routes.ticTacToe, context: context),
       },
       {
         'name': 'Calc',
-        'icon': Icons.calculate,
-        'iconColor': Colors.orange,
+        'iconUrl': AppAssets.calculatorIcon,
         'onTap': () => RouteHelper.push(Routes.calculator, context: context),
       },
       {
@@ -64,54 +60,33 @@ class AppHomeScreen extends StatelessWidget {
         final bool isDark =
             ThemeData.estimateBrightnessForColor(bgColor) == Brightness.dark;
         final Color textColor = isDark ? Colors.white : Colors.black;
-        final Color shadowColor =
-            isDark ? Colors.black : Colors.white.withOpacity(0.5);
 
         return Container(
           color: bgColor,
           child: Padding(
             padding:
-                const EdgeInsets.only(top: 40, left: 20, right: 20, bottom: 20),
+                const EdgeInsets.only(top: 40, left: 24, right: 24, bottom: 20),
             child: GridView.builder(
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                mainAxisSpacing: 20,
+                crossAxisCount: 4,
+                mainAxisSpacing: 24,
                 crossAxisSpacing: 16,
-                childAspectRatio: 1.1,
+                childAspectRatio: 0.75,
               ),
               itemCount: apps.length,
               itemBuilder: (context, index) {
                 final app = apps[index];
-                return NeoPopButton(
-                  color: isDark
-                      ? Colors.white.withOpacity(0.1)
-                      : Colors.black.withOpacity(0.05),
-                  bottomShadowColor: isDark
-                      ? Colors.black.withOpacity(0.2)
-                      : Colors.grey.withOpacity(0.2),
-                  rightShadowColor: isDark
-                      ? Colors.black.withOpacity(0.2)
-                      : Colors.grey.withOpacity(0.2),
-                  depth: 5,
-                  onTapUp: () {
+                return GestureDetector(
+                  onTap: () {
                     HapticFeedback.vibrate();
                     app['onTap']();
                   },
-                  onTapDown: () => HapticFeedback.vibrate(),
-                  border: Border.all(
-                      color: isDark
-                          ? Colors.white.withOpacity(0.2)
-                          : Colors.black.withOpacity(0.1)),
-                  child: Center(
-                    child: LocalApps(
-                      name: app['name'],
-                      // onTap is handled by NeoPopButton
-                      iconUrl: app['iconUrl'],
-                      icon: app['icon'],
-                      iconColor: app['iconColor'],
-                      textColor: textColor,
-                      shadowColor: shadowColor,
-                    ),
+                  child: LocalApps(
+                    name: app['name'],
+                    iconUrl: app['iconUrl'],
+                    icon: app['icon'],
+                    iconColor: app['iconColor'],
+                    textColor: textColor,
                   ),
                 );
               },

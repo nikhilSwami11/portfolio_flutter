@@ -1,7 +1,7 @@
 // ignore_for_file: constant_identifier_names
 
 mixin Constant {
-  static const String COURIER = "CourierPrime";
+  static const String COURIER = "Inter";
   static const String INTER = "Inter";
   static const List<String> skills = [
     'Flutter',

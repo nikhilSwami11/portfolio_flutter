@@ -36,9 +36,9 @@ class MainPage extends StatelessWidget {
                         child: Text(
                           landing.title,
                           style: AppStyles.h1TextStyle.copyWith(
-                              fontSize: 90,
+                              fontSize: 85,
                               color: AppColors.whiteOp9,
-                              fontWeight: FontWeight.w900),
+                              fontWeight: FontWeight.w800),
                         ),
                       ),
                     ),

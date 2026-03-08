@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:math_expressions/math_expressions.dart';
-import 'package:neopop/widgets/buttons/neopop_button/neopop_button.dart';
-import 'package:portfolio/feature/emulator/presentation/widget/main_app_bar.dart';
+import 'package:portfolio/core/constants/globals.dart';
+import 'package:portfolio/feature/emulator/presentation/widget/clean_app_bar.dart';
 
 class CalculatorScreen extends StatefulWidget {
   const CalculatorScreen({super.key});
@@ -23,15 +23,15 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
     '7',
     '8',
     '9',
-    '*',
+    '×',
     '4',
     '5',
     '6',
-    '+',
+    '-',
     '1',
     '2',
     '3',
-    '-',
+    '+',
     'AC',
     '0',
     '.',
@@ -39,59 +39,89 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
   ];
 
   @override
+  void initState() {
+    Globals.isBackDisabled = false;
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
-      appBar: MainAppBar(
-        title: "Calculator",
-        color: Colors.grey.shade900,
+      backgroundColor: Colors.grey.shade50,
+      appBar: const CleanAppBar(
+        title: 'Calculator',
+        backgroundColor: Colors.white,
       ),
       body: Column(
         children: [
-          Expanded(
-            child: Container(
-              padding: const EdgeInsets.all(20),
-              alignment: Alignment.bottomRight,
-              child: FittedBox(
-                fit: BoxFit.scaleDown,
-                alignment: Alignment.bottomRight,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Text(
-                      userInput,
-                      style: const TextStyle(fontSize: 32, color: Colors.white),
-                    ),
-                    const SizedBox(height: 10),
-                    Text(
-                      result,
-                      style: const TextStyle(
-                        fontSize: 48,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ],
+          // Display
+          Container(
+            width: double.infinity,
+            height: 120,
+            margin: const EdgeInsets.all(12),
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(16),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withValues(alpha: 0.04),
+                  blurRadius: 8,
+                  offset: const Offset(0, 2),
                 ),
-              ),
+              ],
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Flexible(
+                  child: FittedBox(
+                    fit: BoxFit.scaleDown,
+                    alignment: Alignment.centerRight,
+                    child: Text(
+                      userInput.isEmpty ? ' ' : userInput,
+                      style: TextStyle(
+                        fontSize: 22,
+                        color: Colors.grey.shade500,
+                        fontWeight: FontWeight.w400,
+                      ),
+                      maxLines: 1,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 4),
+                FittedBox(
+                  fit: BoxFit.scaleDown,
+                  alignment: Alignment.centerRight,
+                  child: Text(
+                    result,
+                    style: const TextStyle(
+                      fontSize: 40,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.black87,
+                    ),
+                    maxLines: 1,
+                  ),
+                ),
+              ],
             ),
           ),
-          const Divider(color: Colors.white),
+          // Button grid
           Expanded(
-            flex: 2,
             child: Container(
-              padding: const EdgeInsets.all(10),
+              padding: const EdgeInsets.fromLTRB(12, 0, 12, 12),
               child: GridView.builder(
+                physics: const NeverScrollableScrollPhysics(),
                 itemCount: buttonList.length,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 4,
-                  crossAxisSpacing: 10,
-                  mainAxisSpacing: 10,
+                  crossAxisSpacing: 8,
+                  mainAxisSpacing: 8,
+                  childAspectRatio: 1.25,
                 ),
                 itemBuilder: (context, index) {
-                  return CustomButton(buttonList[index]);
+                  return _buildButton(buttonList[index]);
                 },
               ),
             ),
@@ -101,25 +131,31 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
     );
   }
 
-  Widget CustomButton(String text) {
-    return NeoPopButton(
-      color: getBgColor(text),
-      bottomShadowColor: getBgColor(text).withOpacity(0.5),
-      rightShadowColor: getBgColor(text).withOpacity(0.5),
-      onTapUp: () {
-        HapticFeedback.vibrate();
-        setState(() {
-          handleButtonPress(text);
-        });
-      },
-      onTapDown: () => HapticFeedback.vibrate(),
-      child: Center(
-        child: Text(
-          text,
-          style: TextStyle(
-            color: getTextColor(text),
-            fontSize: 25,
-            fontWeight: FontWeight.bold,
+  Widget _buildButton(String text) {
+    final btnColor = _getBgColor(text);
+    final txtColor = _getTextColor(text);
+
+    return Material(
+      color: btnColor,
+      borderRadius: BorderRadius.circular(14),
+      elevation: text == '=' ? 2 : 0,
+      shadowColor: text == '=' ? Colors.teal.shade200 : Colors.transparent,
+      child: InkWell(
+        borderRadius: BorderRadius.circular(14),
+        onTap: () {
+          HapticFeedback.vibrate();
+          setState(() {
+            handleButtonPress(text);
+          });
+        },
+        child: Center(
+          child: Text(
+            text,
+            style: TextStyle(
+              color: txtColor,
+              fontSize: 22,
+              fontWeight: _isOperator(text) ? FontWeight.w600 : FontWeight.w500,
+            ),
           ),
         ),
       ),
@@ -151,7 +187,12 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
       }
       return;
     }
-    userInput = userInput + text;
+    // Convert display × to *
+    if (text == "×") {
+      userInput = userInput + "*";
+    } else {
+      userInput = userInput + text;
+    }
   }
 
   String calculate() {
@@ -164,25 +205,39 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
     }
   }
 
-  Color getBgColor(String text) {
-    if (text == "AC" || text == "C") {
-      return Colors.redAccent;
-    }
-    if (text == "=") {
-      return Colors.green;
-    }
-    if (text == "/" ||
-        text == "*" ||
-        text == "+" ||
-        text == "-" ||
-        text == "(" ||
-        text == ")") {
-      return Colors.blueAccent;
-    }
-    return Colors.grey.shade800;
+  bool _isOperator(String text) {
+    return ['/', '×', '+', '-', '=', 'C', 'AC', '(', ')'].contains(text);
   }
 
-  Color getTextColor(String text) {
+  Color _getBgColor(String text) {
+    if (text == "AC" || text == "C") {
+      return Colors.red.shade50;
+    }
+    if (text == "=") {
+      return Colors.teal.shade600;
+    }
+    if (_isOperator(text)) {
+      return Colors.blue.shade50;
+    }
     return Colors.white;
+  }
+
+  Color _getTextColor(String text) {
+    if (text == "AC" || text == "C") {
+      return Colors.red.shade600;
+    }
+    if (text == "=") {
+      return Colors.white;
+    }
+    if (_isOperator(text)) {
+      return Colors.blue.shade700;
+    }
+    return Colors.black87;
+  }
+
+  @override
+  void dispose() {
+    Globals.isBackDisabled = true;
+    super.dispose();
   }
 }

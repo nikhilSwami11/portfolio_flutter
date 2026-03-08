@@ -32,35 +32,43 @@ class LocalApps extends StatelessWidget {
           width: 50,
           height: 50,
           decoration: BoxDecoration(
-            color:
-                icon != null ? (iconColor ?? Colors.blue) : Colors.transparent,
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: icon != null
-              ? Icon(
-                  icon,
-                  color: Colors.white,
-                  size: 30,
-                )
-              : Image.asset(
-                  iconUrl!,
-                  width: 50,
-                  height: 50,
-                ),
-        ),
-        const SizedBox(height: 5),
-        Text(
-          name,
-          style: AppStyles.smTextBoldStyle.copyWith(
-            color: textColor ?? Colors.white,
-            shadows: [
-              Shadow(
-                offset: const Offset(0, 1),
-                blurRadius: 2.0,
-                color: shadowColor ?? Colors.black,
+            borderRadius: BorderRadius.circular(14),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.2),
+                blurRadius: 8,
+                offset: const Offset(0, 2),
               ),
             ],
           ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(14),
+            child: iconUrl != null
+                ? Image.asset(
+                    iconUrl!,
+                    width: 50,
+                    height: 50,
+                    fit: BoxFit.cover,
+                  )
+                : Container(
+                    color: iconColor ?? Colors.blue,
+                    child: Icon(
+                      icon,
+                      color: Colors.white,
+                      size: 30,
+                    ),
+                  ),
+          ),
+        ),
+        const SizedBox(height: 6),
+        Text(
+          name,
+          style: AppStyles.xsTextMediumStyle.copyWith(
+            color: textColor ?? Colors.white,
+          ),
+          textAlign: TextAlign.center,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
         ),
       ],
     );

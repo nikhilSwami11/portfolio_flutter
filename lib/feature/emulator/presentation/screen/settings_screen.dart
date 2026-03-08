@@ -52,7 +52,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
           backgroundColor: context.read<SettingsManagerCubit>().selectedColor,
           body: Column(
             children: [
-              const ToolBar(),
               spacerH10,
               const Text(
                 "Background Color Settings",

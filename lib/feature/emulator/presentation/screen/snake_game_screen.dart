@@ -3,10 +3,8 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:neopop/widgets/buttons/neopop_button/neopop_button.dart';
-import 'package:portfolio/core/theme/colors.dart';
-import 'package:portfolio/core/theme/text_styles.dart';
-import 'package:portfolio/feature/emulator/presentation/widget/main_app_bar.dart';
+import 'package:portfolio/core/constants/globals.dart';
+import 'package:portfolio/feature/emulator/presentation/widget/clean_app_bar.dart';
 
 class SnakeGameScreen extends StatefulWidget {
   const SnakeGameScreen({super.key});
@@ -30,6 +28,7 @@ class _SnakeGameScreenState extends State<SnakeGameScreen> {
 
   @override
   void initState() {
+    Globals.isBackDisabled = false;
     super.initState();
     generateFood();
   }
@@ -107,8 +106,6 @@ class _SnakeGameScreenState extends State<SnakeGameScreen> {
   }
 
   bool checkCollision() {
-    // Check if snake collides with itself
-    // Simple check: duplicate items in list
     if (snake.sublist(1).contains(snake.first)) {
       return true;
     }
@@ -120,21 +117,47 @@ class _SnakeGameScreenState extends State<SnakeGameScreen> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: const Text('Game Over'),
-          content: Text('Your Score: $score'),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
+          backgroundColor: Colors.white,
+          title: const Text(
+            'Game Over',
+            style: TextStyle(
+              fontWeight: FontWeight.w700,
+              color: Colors.black87,
+            ),
+          ),
+          content: Text(
+            'Your Score: $score',
+            style: const TextStyle(
+              fontSize: 16,
+              color: Colors.black54,
+            ),
+          ),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
-                startGame();
               },
-              child: const Text('Play Again'),
+              child: Text(
+                'Exit',
+                style: TextStyle(color: Colors.grey.shade600),
+              ),
             ),
-            TextButton(
+            ElevatedButton(
               onPressed: () {
                 Navigator.of(context).pop();
+                startGame();
               },
-              child: const Text('Exit'),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.teal.shade600,
+                foregroundColor: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+              ),
+              child: const Text('Play Again'),
             ),
           ],
         );
@@ -144,6 +167,7 @@ class _SnakeGameScreenState extends State<SnakeGameScreen> {
 
   @override
   void dispose() {
+    Globals.isBackDisabled = true;
     timer?.cancel();
     super.dispose();
   }
@@ -151,137 +175,195 @@ class _SnakeGameScreenState extends State<SnakeGameScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
-      appBar: MainAppBar(
-        title: "Snake Game",
-        color: Colors.green.shade800,
+      backgroundColor: Colors.grey.shade50,
+      appBar: const CleanAppBar(
+        title: 'Snake',
+        backgroundColor: Colors.white,
       ),
       body: Column(
         children: [
-          Expanded(
-            child: GestureDetector(
-              onVerticalDragUpdate: (details) {
-                if (direction != 'up' && details.delta.dy > 0) {
-                  direction = 'down';
-                } else if (direction != 'down' && details.delta.dy < 0) {
-                  direction = 'up';
-                }
-              },
-              onHorizontalDragUpdate: (details) {
-                if (direction != 'left' && details.delta.dx > 0) {
-                  direction = 'right';
-                } else if (direction != 'right' && details.delta.dx < 0) {
-                  direction = 'left';
-                }
-              },
-              child: GridView.builder(
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: folderCount,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: squaresPerRow,
-                ),
-                itemBuilder: (context, index) {
-                  if (snake.contains(index)) {
-                    return Container(
-                      padding: const EdgeInsets.all(2),
-                      decoration: BoxDecoration(
-                        color: Colors.green,
-                        borderRadius: BorderRadius.circular(2),
-                      ),
-                    );
-                  }
-                  if (index == food) {
-                    return Container(
-                      decoration: const BoxDecoration(
-                        color: Colors.red,
-                        shape: BoxShape.circle,
-                      ),
-                    );
-                  }
-                  return Container(
-                    decoration: BoxDecoration(
-                        border: Border.all(
-                            color: Colors.grey.withOpacity(0.1), width: 0.5)),
-                  );
-                },
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(20.0),
+          // Score & Start row
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+            color: Colors.white,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  'Score: $score',
-                  style: AppStyles.h6TextStyle.copyWith(color: AppColors.white),
+                Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                  decoration: BoxDecoration(
+                    color: Colors.teal.shade50,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Text(
+                    'Score: $score',
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.teal.shade700,
+                    ),
+                  ),
                 ),
                 if (!isPlaying)
-                  NeoPopButton(
-                    color: Colors.white,
-                    bottomShadowColor: Colors.green.shade900,
-                    rightShadowColor: Colors.green.shade900,
-                    animationDuration: const Duration(milliseconds: 200),
-                    depth: 5,
-                    onTapUp: () {
+                  ElevatedButton(
+                    onPressed: () {
                       HapticFeedback.vibrate();
                       startGame();
                     },
-                    onTapDown: () {
-                      HapticFeedback.vibrate();
-                    },
-                    child: Padding(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.teal.shade600,
+                      foregroundColor: Colors.white,
+                      elevation: 0,
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 20, vertical: 10),
-                      child: Text("Start",
-                          style: AppStyles.smTextBoldStyle
-                              .copyWith(color: Colors.black)),
+                          horizontal: 24, vertical: 10),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                    ),
+                    child: const Text(
+                      'Start',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 14,
+                      ),
                     ),
                   ),
               ],
             ),
           ),
-          const SizedBox(height: 10),
-          // D-Pad Controls for Interaction
+          // Game grid
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.05),
+                      blurRadius: 10,
+                      offset: const Offset(0, 2),
+                    ),
+                  ],
+                ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(12),
+                  child: GestureDetector(
+                    onVerticalDragUpdate: (details) {
+                      if (direction != 'up' && details.delta.dy > 0) {
+                        direction = 'down';
+                      } else if (direction != 'down' && details.delta.dy < 0) {
+                        direction = 'up';
+                      }
+                    },
+                    onHorizontalDragUpdate: (details) {
+                      if (direction != 'left' && details.delta.dx > 0) {
+                        direction = 'right';
+                      } else if (direction != 'right' && details.delta.dx < 0) {
+                        direction = 'left';
+                      }
+                    },
+                    child: GridView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: folderCount,
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: squaresPerRow,
+                      ),
+                      itemBuilder: (context, index) {
+                        if (snake.first == index) {
+                          // Snake head
+                          return Container(
+                            margin: const EdgeInsets.all(0.5),
+                            decoration: BoxDecoration(
+                              color: Colors.teal.shade700,
+                              borderRadius: BorderRadius.circular(3),
+                            ),
+                          );
+                        }
+                        if (snake.contains(index)) {
+                          // Snake body
+                          return Container(
+                            margin: const EdgeInsets.all(0.5),
+                            decoration: BoxDecoration(
+                              color: Colors.teal.shade400,
+                              borderRadius: BorderRadius.circular(2),
+                            ),
+                          );
+                        }
+                        if (index == food) {
+                          return Container(
+                            margin: const EdgeInsets.all(2),
+                            decoration: BoxDecoration(
+                              color: Colors.orange.shade400,
+                              shape: BoxShape.circle,
+                            ),
+                          );
+                        }
+                        return Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: Colors.grey.shade100,
+                              width: 0.5,
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+          // D-Pad Controls
           if (isPlaying)
             Padding(
-              padding: const EdgeInsets.only(bottom: 20),
+              padding: const EdgeInsets.only(bottom: 16, top: 4),
               child: Column(
                 children: [
-                  _buildControlBtn(Icons.arrow_upward, 'up'),
+                  _buildControlBtn(Icons.keyboard_arrow_up_rounded, 'up'),
+                  const SizedBox(height: 4),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      _buildControlBtn(Icons.arrow_back, 'left'),
-                      const SizedBox(width: 40),
-                      _buildControlBtn(Icons.arrow_forward, 'right'),
+                      _buildControlBtn(
+                          Icons.keyboard_arrow_left_rounded, 'left'),
+                      const SizedBox(width: 48),
+                      _buildControlBtn(
+                          Icons.keyboard_arrow_right_rounded, 'right'),
                     ],
                   ),
-                  _buildControlBtn(Icons.arrow_downward, 'down'),
+                  const SizedBox(height: 4),
+                  _buildControlBtn(Icons.keyboard_arrow_down_rounded, 'down'),
                 ],
               ),
-            )
+            ),
         ],
       ),
     );
   }
 
   Widget _buildControlBtn(IconData icon, String moveDir) {
-    return NeoPopButton(
+    return Material(
       color: Colors.white,
-      bottomShadowColor: Colors.grey.shade800,
-      rightShadowColor: Colors.grey.shade800,
-      onTapUp: () {
-        HapticFeedback.vibrate();
-        if (moveDir == 'up' && direction != 'down') direction = 'up';
-        if (moveDir == 'down' && direction != 'up') direction = 'down';
-        if (moveDir == 'left' && direction != 'right') direction = 'left';
-        if (moveDir == 'right' && direction != 'left') direction = 'right';
-      },
-      onTapDown: () => HapticFeedback.vibrate(),
-      child: Padding(
-        padding: const EdgeInsets.all(12),
-        child: Icon(icon, color: Colors.black),
+      borderRadius: BorderRadius.circular(12),
+      elevation: 1,
+      shadowColor: Colors.black12,
+      child: InkWell(
+        borderRadius: BorderRadius.circular(12),
+        onTap: () {
+          HapticFeedback.vibrate();
+          if (moveDir == 'up' && direction != 'down') direction = 'up';
+          if (moveDir == 'down' && direction != 'up') direction = 'down';
+          if (moveDir == 'left' && direction != 'right') direction = 'left';
+          if (moveDir == 'right' && direction != 'left') direction = 'right';
+        },
+        child: Padding(
+          padding: const EdgeInsets.all(12),
+          child: Icon(icon, color: Colors.grey.shade700, size: 28),
+        ),
       ),
     );
   }
