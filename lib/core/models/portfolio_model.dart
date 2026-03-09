@@ -52,8 +52,9 @@ class AboutSection {
   final String descriptionTitle;
   final String description;
   final String skillsTitle;
-  final List<String> skills;
-  final List<String> otherSkills;
+  final List<SkillGroup> skillGroups;
+  final List<String>? skills;
+  final List<String>? otherSkills;
   final String experienceTitle;
   final String experienceSummary;
   final String profileImage;
@@ -63,8 +64,9 @@ class AboutSection {
     required this.descriptionTitle,
     required this.description,
     required this.skillsTitle,
-    required this.skills,
-    required this.otherSkills,
+    required this.skillGroups,
+    this.skills,
+    this.otherSkills,
     required this.experienceTitle,
     required this.experienceSummary,
     required this.profileImage,
@@ -140,4 +142,19 @@ class DetailBannerData {
   factory DetailBannerData.fromJson(Map<String, dynamic> json) =>
       _$DetailBannerDataFromJson(json);
   Map<String, dynamic> toJson() => _$DetailBannerDataToJson(this);
+}
+
+@JsonSerializable()
+class SkillGroup {
+  final String category;
+  final List<String> skills;
+
+  SkillGroup({
+    required this.category,
+    required this.skills,
+  });
+
+  factory SkillGroup.fromJson(Map<String, dynamic> json) =>
+      _$SkillGroupFromJson(json);
+  Map<String, dynamic> toJson() => _$SkillGroupToJson(this);
 }

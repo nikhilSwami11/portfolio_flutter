@@ -53,10 +53,13 @@ AboutSection _$AboutSectionFromJson(Map<String, dynamic> json) => AboutSection(
       descriptionTitle: json['descriptionTitle'] as String,
       description: json['description'] as String,
       skillsTitle: json['skillsTitle'] as String,
+      skillGroups: (json['skillGroups'] as List<dynamic>)
+          .map((e) => SkillGroup.fromJson(e as Map<String, dynamic>))
+          .toList(),
       skills:
-          (json['skills'] as List<dynamic>).map((e) => e as String).toList(),
-      otherSkills: (json['otherSkills'] as List<dynamic>)
-          .map((e) => e as String)
+          (json['skills'] as List<dynamic>?)?.map((e) => e as String).toList(),
+      otherSkills: (json['otherSkills'] as List<dynamic>?)
+          ?.map((e) => e as String)
           .toList(),
       experienceTitle: json['experienceTitle'] as String,
       experienceSummary: json['experienceSummary'] as String,
@@ -69,6 +72,7 @@ Map<String, dynamic> _$AboutSectionToJson(AboutSection instance) =>
       'descriptionTitle': instance.descriptionTitle,
       'description': instance.description,
       'skillsTitle': instance.skillsTitle,
+      'skillGroups': instance.skillGroups,
       'skills': instance.skills,
       'otherSkills': instance.otherSkills,
       'experienceTitle': instance.experienceTitle,
@@ -132,4 +136,16 @@ Map<String, dynamic> _$DetailBannerDataToJson(DetailBannerData instance) =>
     <String, dynamic>{
       'title': instance.title,
       'subtitle': instance.subtitle,
+    };
+
+SkillGroup _$SkillGroupFromJson(Map<String, dynamic> json) => SkillGroup(
+      category: json['category'] as String,
+      skills:
+          (json['skills'] as List<dynamic>).map((e) => e as String).toList(),
+    );
+
+Map<String, dynamic> _$SkillGroupToJson(SkillGroup instance) =>
+    <String, dynamic>{
+      'category': instance.category,
+      'skills': instance.skills,
     };

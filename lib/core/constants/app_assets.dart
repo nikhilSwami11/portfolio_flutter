@@ -25,4 +25,5 @@ mixin AppAssets {
   static const snakeIcon = "assets/icons/snake_icon.png";
   static const tictactoeIcon = "assets/icons/tictactoe_icon.png";
   static const calculatorIcon = "assets/icons/calculator_icon.png";
+  static const iosBatteryIcon = "assets/icons/ios_battery.png";
 }

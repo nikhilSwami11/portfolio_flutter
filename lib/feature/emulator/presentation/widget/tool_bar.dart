@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:portfolio/core/constants/app_assets.dart';
 import 'package:portfolio/core/theme/text_styles.dart';
 
 class ToolBar extends StatelessWidget {
@@ -30,11 +31,12 @@ class ToolBar extends StatelessWidget {
               );
             },
           ),
-          const Icon(
-            Icons.battery_full_rounded,
+          Image.asset(
+            AppAssets.iosBatteryIcon,
+            width: 22,
+            fit: BoxFit.contain,
             color: Colors.black,
-            size: 20,
-          ),
+          )
         ],
       ),
     );

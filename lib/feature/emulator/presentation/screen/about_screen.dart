@@ -28,6 +28,15 @@ class AboutScreen extends StatelessWidget {
           elevation: 0,
           backgroundColor: Colors.black,
           titleSpacing: 0,
+          title: Padding(
+            padding: const EdgeInsets.only(left: 12),
+            child: Text(
+              "Nikhil Swami",
+              style: AppStyles.h6TextStyle
+                  .copyWith(color: Colors.white, fontWeight: FontWeight.w700),
+            ),
+          ),
+          centerTitle: false,
           leading: NeoPopButton(
             color: AppColors.indigo,
             onTapUp: () {
@@ -180,40 +189,67 @@ class AboutScreen extends StatelessWidget {
                         ),
                         spacerH20,
                         Container(
-                          color: Colors.black,
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                              color: AppColors.black,
+                              border:
+                                  Border.all(width: 2, color: Colors.black)),
+                          padding: const EdgeInsets.all(12),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                about.skillsTitle,
-                                style: AppStyles.h5TextStyle
+                                "What do I know?",
+                                style: AppStyles.h6TextStyle
                                     .copyWith(color: Colors.white),
                               ),
-                              spacerH10,
-                              RichText(
-                                text: TextSpan(
-                                  children: List.generate(
-                                      about.skills.length,
-                                      (index) => _buildSpan(about.skills[index],
-                                          AppColors.white, null)),
-                                ),
+                              const SizedBox(height: 12),
+                              Wrap(
+                                spacing: 8,
+                                runSpacing: 8,
+                                children: [
+                                  'Mobile Architecture',
+                                  'Agentic AI & LLMs',
+                                  'Distributed Backend',
+                                  'Applied Machine Learning'
+                                ]
+                                    .map((skill) => _buildSpan(
+                                        skill,
+                                        AppColors.indigo,
+                                        Colors.white,
+                                        AppColors.black))
+                                    .toList(),
                               ),
                             ],
                           ),
                         ),
+                        spacerH20,
                         Container(
+                          width: double.infinity,
                           decoration: BoxDecoration(
                               border:
                                   Border.all(width: 2, color: Colors.black)),
-                          child: RichText(
-                            text: TextSpan(
-                              children: List.generate(
-                                  about.otherSkills.length,
-                                  (index) => _buildSpan(
-                                      about.otherSkills[index],
-                                      Colors.black,
-                                      AppColors.indigo)),
-                            ),
+                          padding: const EdgeInsets.all(12),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "hobbies",
+                                style: AppStyles.h6TextStyle,
+                              ),
+                              const SizedBox(height: 12),
+                              Wrap(
+                                spacing: 8,
+                                runSpacing: 8,
+                                children: List.generate(
+                                    (about.otherSkills ?? []).length,
+                                    (index) => _buildSpan(
+                                        (about.otherSkills ?? [])[index],
+                                        AppColors.black,
+                                        AppColors.black,
+                                        AppColors.indigo)),
+                              ),
+                            ],
                           ),
                         ),
                         const SizedBox(
@@ -253,9 +289,9 @@ class AboutScreen extends StatelessWidget {
     );
   }
 
-  WidgetSpan _buildSpan(String item, Color borderColor, Color? containerColor) {
-    return WidgetSpan(
-        child: Container(
+  Widget _buildSpan(
+      String item, Color borderColor, Color? textColor, Color? containerColor) {
+    return Container(
       padding: paddingH10V4,
       decoration: BoxDecoration(
           color: containerColor,
@@ -266,8 +302,8 @@ class AboutScreen extends StatelessWidget {
               top: BorderSide(width: 1, color: borderColor))),
       child: Text(
         item,
-        style: AppStyles.mdTextBoldStyle.copyWith(color: borderColor),
+        style: AppStyles.mdTextBoldStyle.copyWith(color: textColor),
       ),
-    ));
+    );
   }
 }

@@ -13,6 +13,53 @@
         "descriptionTitle": "About me",
         "description": "MS CS student at ASU (May 2026), shipping things that actually work. I've built mobile apps with millions of downloads, backend systems that stay up, and I'm now diving deep into generative AI - LLMs, RAG, and agentic systems.",
         "skillsTitle": "What do I know?",
+        "skillGroups": [
+            {
+                "category": "Languages",
+                "skills": [
+                    "Python",
+                    "Dart",
+                    "JavaScript"
+                ]
+            },
+            {
+                "category": "AI & ML",
+                "skills": [
+                    "PyTorch",
+                    "AI Agents",
+                    "LLMs",
+                    "Prompt Engineering"
+                ]
+            },
+            {
+                "category": "Mobile & Web",
+                "skills": [
+                    "Flutter",
+                    "React",
+                    "Node.js"
+                ]
+            },
+            {
+                "category": "Backend",
+                "skills": [
+                    "Go",
+                    "REST",
+                    "gRPC",
+                    "PostgreSQL",
+                    "Firebase"
+                ]
+            },
+            {
+                "category": "Cloud",
+                "skills": [
+                    "AWS",
+                    "GCP",
+                    "Azure",
+                    "Docker",
+                    "Kubernetes"
+                ]
+            }
+        ],
         "skills": [
             "Python",
             "Go",
@@ -73,10 +120,10 @@
             "companyName": "Onsite Teams",
             "siteUrl": "onsiteteams.com",
             "role": "Software Developer",
-            "location": "Remote",
+            "location": "New Delhi",
             "duration": "Feb 2024 – Aug 2024",
             "logoAsset": "assets/icons/onsite_logo.jpeg",
-            "summary": "Built apps and software using Flutter and Go.",
+            "summary": "Contributed to a high-growth SaaS collaboration platform, architecting the transition from legacy systems to a high-performance Flutter & Go microservices stack for 500K+ users.",
             "appName": "Onsite",
             "appDownloads": "(500K+)",
             "backgroundColorHex": "#FFEBEE",
@@ -100,13 +147,13 @@
             ]
         },
         {
-            "companyName": "NowFloats",
+            "companyName": "NowFloats (Reliance)",
             "siteUrl": "nowfloats.com",
             "role": "Software Developer",
             "location": "Hyderabad",
             "duration": "Jan 2023 – Feb 2024",
             "logoAsset": "assets/icons/nf_logo.png",
-            "summary": "Kept a SaaS platform humming for thousands of businesses — backend, CI/CD, all of it.",
+            "summary": "Engineered scalable backend and mobile solutions for Zadinga (a Reliance-backed SaaS), enabling digital transformation for thousands of retail businesses via Azure-hosted .NET microservices.",
             "appName": "Zadinga",
             "appDownloads": "(50K+)",
             "backgroundColorHex": "#FFF9C4",
@@ -136,7 +183,7 @@
             "location": "Mumbai",
             "duration": "Jan 2022 – Sept 2022",
             "logoAsset": "assets/icons/fraazo_logo.png",
-            "summary": "Consumer Flutter app, 1M+ downloads — Server-Driven UI and zero-jank performance.",
+            "summary": "Developed core features for a top-tier E-commerce/Quick-Commerce platform, implementing Server-Driven UI to manage real-time updates for over 1 million active users with 99.9% crash-free sessions.",
             "appName": "Fraazo",
             "appDownloads": "(1M+)",
             "backgroundColorHex": "#B9F6CA",

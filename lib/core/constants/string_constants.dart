@@ -57,8 +57,7 @@ mixin StringConstants {
   static const heroLine1 = "Hello.";
   static const heroLine2 = "I'm Nikhil.";
   static const heroLine3 = "I build intelligent software.";
-  static const heroCredentials =
-      "Software Developer  •  ML Engineer  •  MS CS @ ASU";
+  static const heroCredentials = "Software Developer  •  ML Engineer";
   static const footerTitle = "Let's Connect";
   static const footerEmail = "nswami1@asu.edu";
 

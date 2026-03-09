@@ -38,85 +38,62 @@ class SkillsGridSection extends StatelessWidget {
                   ),
                   const SizedBox(height: 32),
 
-                  // Technical skills
-                  GlassmorphicContainer(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
+                  // Map over skillGroups to display distinct sections
+                  ...about.skillGroups.asMap().entries.map((entry) {
+                    final index = entry.key;
+                    final group = entry.value;
+                    
+                    final colors = [
+                      const Color(0xFF4f46e5), // Indigo
+                      const Color(0xFF0ea5e9), // Sky Blue
+                      const Color(0xFF10b981), // Emerald
+                      const Color(0xFFf59e0b), // Amber
+                      const Color(0xFFef4444), // Red
+                      const Color(0xFF8b5cf6), // Violet
+                    ];
+                    final color = colors[index % colors.length];
+
+                    return Padding(
+                      padding: const EdgeInsets.only(bottom: 16),
+                      child: GlassmorphicContainer(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Container(
-                              width: 4,
-                              height: 20,
-                              decoration: BoxDecoration(
-                                color: const Color(0xFF4f46e5),
-                                borderRadius: BorderRadius.circular(2),
-                              ),
+                            Row(
+                              children: [
+                                Container(
+                                  width: 4,
+                                  height: 20,
+                                  decoration: BoxDecoration(
+                                    color: color,
+                                    borderRadius: BorderRadius.circular(2),
+                                  ),
+                                ),
+                                const SizedBox(width: 10),
+                                Text(
+                                  group.category,
+                                  style: AppStyles.lgTextBoldStyle.copyWith(
+                                    color: AppColors.whiteOp9,
+                                  ),
+                                ),
+                              ],
                             ),
-                            const SizedBox(width: 10),
-                            Text(
-                              'Technical',
-                              style: AppStyles.lgTextBoldStyle.copyWith(
-                                color: AppColors.whiteOp9,
-                              ),
+                            const SizedBox(height: 16),
+                            Wrap(
+                              spacing: 8,
+                              runSpacing: 10,
+                              children: group.skills
+                                  .map((skill) => _SkillChip(
+                                        label: skill,
+                                        color: color,
+                                      ))
+                                  .toList(),
                             ),
                           ],
                         ),
-                        const SizedBox(height: 16),
-                        Wrap(
-                          spacing: 8,
-                          runSpacing: 10,
-                          children: about.skills
-                              .map((skill) => _SkillChip(
-                                    label: skill,
-                                    color: const Color(0xFF4f46e5),
-                                  ))
-                              .toList(),
-                        ),
-                      ],
-                    ),
-                  ),
-
-                  const SizedBox(height: 16),
-
-                  // Other skills
-                  GlassmorphicContainer(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            Container(
-                              width: 4,
-                              height: 20,
-                              decoration: BoxDecoration(
-                                color: const Color(0xFF0ea5e9),
-                                borderRadius: BorderRadius.circular(2),
-                              ),
-                            ),
-                            const SizedBox(width: 10),
-                            Text(
-                              'Beyond Code',
-                              style: AppStyles.lgTextBoldStyle.copyWith(
-                                color: AppColors.whiteOp9,
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 16),
-                        Wrap(
-                          spacing: 8,
-                          runSpacing: 10,
-                          children: about.otherSkills
-                              .map((skill) => _SkillChip(
-                                    label: skill,
-                                    color: const Color(0xFF0ea5e9),
-                                  ))
-                              .toList(),
-                        ),
-                      ],
-                    ),
-                  ),
+                      ),
+                    );
+                  }).toList(),
                 ],
               ),
             ),

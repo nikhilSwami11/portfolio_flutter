@@ -9,6 +9,7 @@ import 'package:portfolio/feature/emulator/presentation/widget/emulator_widget.d
 import 'package:portfolio/feature/home/presentation/widgets/experience_timeline_section.dart';
 import 'package:portfolio/feature/home/presentation/widgets/skills_grid_section.dart';
 import 'package:portfolio/feature/home/presentation/widgets/social_links.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -357,11 +358,48 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
                               color: AppColors.whiteOp6,
                             ),
                           ),
-                          Text(
-                            StringConstants.footerEmail,
-                            style: AppStyles.lgTextMediumStyle.copyWith(
-                              color: AppColors.whiteOp9,
-                            ),
+                          const SizedBox(height: 8),
+                          Row(
+                            mainAxisSize: MainAxisSize
+                                .min, // Keeps the row tight to the content
+                            children: [
+                              // 1. Selectable Email Text
+                              SelectableText(
+                                StringConstants.footerEmail,
+                                style: AppStyles.lgTextMediumStyle.copyWith(
+                                  color: AppColors.whiteOp9,
+                                ),
+                              ),
+                              const SizedBox(
+                                  width: 8), // Spacing between email and arrow
+
+                              // 2. Clickable Arrow
+                              GestureDetector(
+                                onTap: () async {
+                                  final Uri emailLaunchUri = Uri(
+                                    scheme: 'mailto',
+                                    path: StringConstants.footerEmail,
+                                    queryParameters: {
+                                      'subject':
+                                          'Inquiry from Portfolio', // Optional: Pre-fill subject
+                                    },
+                                  );
+
+                                  if (await canLaunchUrl(emailLaunchUri)) {
+                                    await launchUrl(emailLaunchUri);
+                                  } else {
+                                    // Handle error (e.g., no mail app installed)
+                                    debugPrint(
+                                        'Could not launch $emailLaunchUri');
+                                  }
+                                },
+                                child: Icon(
+                                  Icons.arrow_forward_rounded,
+                                  color: AppColors.whiteOp9,
+                                  size: 20,
+                                ),
+                              ),
+                            ],
                           ),
                           const SizedBox(height: 40),
                           const SocialLinksWidget(),
