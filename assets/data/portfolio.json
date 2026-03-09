@@ -23,20 +23,23 @@
                 ]
             },
             {
-                "category": "AI & ML",
-                "skills": [
-                    "PyTorch",
-                    "AI Agents",
-                    "LLMs",
-                    "Prompt Engineering"
-                ]
-            },
-            {
                 "category": "Mobile & Web",
                 "skills": [
                     "Flutter",
+                    "iOS",
+                    "Android",
                     "React",
                     "Node.js"
+                ]
+            },
+            {
+                "category": "AI & ML",
+                "skills": [
+                    "PyTorch",
+                    "NLP",
+                    "AI Agents",
+                    "Model Fine-Tuning",
+                    "Hugging Face"
                 ]
             },
             {
@@ -45,7 +48,7 @@
                     "Go",
                     "REST",
                     "gRPC",
-                    "PostgreSQL",
+                    "MongoDB",
                     "Firebase"
                 ]
             },
